@@ -1,143 +1,21 @@
-<!DOCTYPE HTML>
 <html>
-  <head>
-   <meta charset="UTF-8"> 
-    <script src="jquery-2.1.3.min.js">
-    </script>
-    <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-        color: white;
-        background-color: rgb(123,195,239);
-      }
-      #chineseText
-      {
-        z-index: 1;
-        font-size: 80px;
-        top:0px;
-        letter-spacing:100px;
-
-        margin-left: auto;
-        margin-right: auto;
-        width:70%;
-        text-align:center;
-        text-shadow: 2px 2px 1px rgba(00,00,00,.1);
-        
-      }
-      #mtnCanvas
-      {
-          z-index:0;
-          bottom:0px;
-          margin-left:auto;
-          margin-right:auto;
-
-      }
-      #mtnDiv
-      {
-        margin-left:auto;
-        margin-right:auto;
-      }
-      #mainText
-      {
-          margin-left: auto;
-          margin-right: auto;
-          width: 50%;
-          //font-family: sans-serif;
-          font-size: 20px;
-          background-color:rgba(255,255,255,.1);
-      }
-      #mainText p
-      {
-      }
-      #htmlStuff
-      {
-        z-index:-2;
-        width:70%;
-        float:left;
-      }
-    </style>
-  </head>
-  <body onresize = resizeHandler()>
-
-    <div id="htmlStuff">
-    <div id="chineseText">孙悟空</div>
-    <div id="mainText">
-      <p>Coming soon.</p>
-      <p></p>
-      <p></p>
-      <p></p>
-    </div>
-
-    <div id="mtnDiv">
-    <canvas id="mtnCanvas" width="978" height="200"></canvas>
-    </div><!--mtnCanvas-->
-    </div> <!--htmlStuff-->
-    <script>
-
-      var canvas = document.getElementById('mtnCanvas');
-      var context = canvas.getContext('2d');
-
-      function resizeHandler()
-      {
-        var w = window.outerWidth;
-        // Does nothing for now.
-      }
-
-      var mtnColors = ['rgb(165,162,181)', 'rgb(115,117,140)', 'rgb(123,134,189)' ];
-
-      var skyColor = 'rgb(123,195,239)';
-
-
-
-
-      var cWidth = 578;
-      var cHeight = 200;
-      var offset = 200; // offset of each layer of mountains
-
-      var wWidth= $(window).width();
-
-
-      var coords = [
-                [0,cHeight],
-                [cWidth/4,cHeight/6],
-                [cWidth/2,cHeight*2/3],
-                [cWidth*3/4, cHeight/5],
-                [cWidth, cHeight ],
-                [0,cHeight ]
-          ];
-
-
-      for (j = 0; j<mtnColors.length; j++)
-      {
-
-          context.beginPath();
-          context.moveTo(coords[0][0], coords[0][1]);
-
-          for( i=0; i < coords.length; i++ )
-          {
-            context.lineTo(coords[i][0], coords[i][1] ) ;
-          }
-
-          context.lineWidth = 5;
-          context.strokeStyle = mtnColors[j];
-          context.stroke();
-          context.fillStyle= mtnColors[j];
-          context.fill();
-
-          // Adjust coordinates for next layer of mountains:
-
-          for(i=0; i<coords.length; i++ )
-          {
-              coords[i][0]+=offset;
-          }
-
-      }
-
-      context.fillStyle='white';
-      context.font="20px Georgia";
-      //context.fillText("Hello", wWidth/4, 90);
-
-    </script>
-  </body>
+<head>
+<title>Reading materials for EAP</title>
+<style>
+    p
+    {
+        font-family: helvetica, sans-serif
+    }
+</style>
+</head>
+<body>
+<h1>Reading materials for EAP</h1>
+<p><a href="theboy.docx">The Boy Who Lived (Harry Potter excerpt)</a></p>
+<p><a href ="https://ebooks.adelaide.edu.au/f/fitzgerald/f_scott/gatsby/">The Great Gatsby</a></p>
+<h2>Newspaper article zips</h2>
+<p><a href="CLASS 1.zip">Class 1</a></p>
+<p><a href="CLASS 2.zip">Class 2</a></p>
+<p><a href="CLASS 3.zip">Class 3</a></p>
+<p><a href="CLASS 4.zip">Class 4</a></p>
+</body>
 </html>
