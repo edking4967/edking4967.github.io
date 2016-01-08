@@ -1,0 +1,14 @@
+p
+{
+    font-family: helvetica, sans-serif;
+    max-width: 800px;
+}
+.announcement
+{
+    text-align: justify;
+    background-color: rgb(240,230,140);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
+}
+
