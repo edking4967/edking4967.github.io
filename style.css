@@ -3,6 +3,11 @@ p
     font-family: helvetica, sans-serif;
     max-width: 800px;
 }
+h1 a
+{
+    color:black;
+
+}
 .announcement
 {
     text-align: justify;
