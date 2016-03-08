@@ -18,6 +18,15 @@ h1 a
     margin:10px;
 }
 
+.info
+{
+    list-style: none;
+    padding-left: 10px;
+    background-color: rgba(200,200,255,.5);
+    max-width: 400px;
+    border-radius: 5px;
+}
+
 div.section
 {
     background-color: rgb(240,240,240);
