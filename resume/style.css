@@ -142,6 +142,11 @@ section:last-child {
 	margin-bottom: 3px;
 }
 
+.skill
+{
+	font-weight: 700;
+}
+
 .keySkills {
 	list-style-type: none;
 	-moz-column-count:3;
