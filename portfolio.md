@@ -21,14 +21,11 @@ __Monk vs Ninjas 3d__
 A project to learn basic 3d modeling and design skills in Unity and Blender. 
 
 __Monk vs Ninjas Android__
-Source code: github.com/edking4967/monk-vs-ninjas
-Demo: thousandonestories.com/apk
+[Source code](github.com/edking4967/monk-vs-ninjas) • [Demo](thousandonestories.com/apk)
 
 __Monk vs Ninjas Unity__
 
-Source code: github.com/edking4967/monk-vs-ninjas-unity
-
-Demo: thousandonestories.com/monk
+[Source code](github.com/edking4967/monk-vs-ninjas-unity) • [Demo](thousandonestories.com/monk)
 
 A Unity implementation of Monk vs Ninjas. Recreating the game in Unity2D allowed me to learn Unity thoroughly.
 
