@@ -73,5 +73,7 @@ __A Thousand and One Stories__
 
 A platform built on Wordpress for users to share short stories.
 
+Published stories by over 50 authors, including contributors to The Atlantic and The Boston Herald.
+
 [http://thousandonestories.com](Visit)
 
