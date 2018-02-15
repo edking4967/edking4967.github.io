@@ -4,6 +4,29 @@ title: Portfolio
 permalink: /portfolio/
 tags: portfolio
 ---
+__Monk vs Ninjas 3d__
+
+![Gif of Monk vs Ninjas 3d depicting sunrise and sunset]({{ site.url }}/assets/sunset-sunrise-glitches.gif)
+
+![Gif of Monk vs Ninjas 3d depicting lighting using a flame particle](https://gfycat.com/SleepyCoolFirefly)
+
+![Gif of Monk vs Ninjas 3d depicting lighting using a flame particle](https://giant.gfycat.com/SleepyCoolFirefly.webm)
+
+![Alt Text](https://gfycat.com/SleepyCoolFirefly)
+
+![Gif of Monk vs Ninjas 3d depicting lighting using a flame particle]({{ site.url }}/assets/lighting.gif)
+
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+
+![FIXME]({{ site.url }}/assets/mvn_unity.png)
+
+![FIXME]({{ site.url }}/assets/mvn_unity.png)
+
+__Not in My Backyard__
+
+![FIXME]({{ site.url }}/assets/nimby.png)
+
+
 __Cube Office__
 
 ![Screenshot of Cube Office]({{ site.url }}/assets/cube_office.png)
@@ -51,3 +74,4 @@ __A Thousand and One Stories__
 A platform built on Wordpress for users to share short stories.
 
 [http://thousandonestories.com](Visit)
+
