@@ -6,9 +6,14 @@ tags: portfolio
 ---
 
 __Monk vs Ninjas 3d__
-![Screenshot of Monk vs Ninjas 3d]({{ site.url }}/assets/daynight.gif)
+
+![Screenshot of Monk vs Ninjas 3d]({{ site.url }}/assets/lighting.gif)
 
 __Transmission from Planet X__
+
+__Monk vs Ninjas Android__
+
+![Screenshot of Monk vs Ninjas android]({{ site.url }}/assets/daynight.gif)
 
 __Not in My Backyard!__
 
