@@ -4,8 +4,13 @@ title: Portfolio
 permalink: /portfolio/
 tags: portfolio
 ---
+[Games](#games)
+[Stories](#stories)
+[Web](#web)
+[Source code](#source)
 
-_Games_
+
+<a name="games">_Games_</a>
 
 __Monk vs Ninjas 3d__
 
@@ -47,7 +52,7 @@ Submission for Itch.io “A Game By Its Cover” Game Jam, 2016. As the heroic c
 
 [Play](https://thousandone.itch.io/rainbow-sword)
 
-_Stories_
+<a name="stories">_Stories_</a>
 
 __The Crystal Dragon__
 
@@ -57,7 +62,7 @@ A series of adventure stories.
 
 [http://newcrystaldragon.wordpress.com/](Read)
 
-_Web_
+<a name="web">_Web_</a>
 
 __A Thousand and One Stories__
 
@@ -67,7 +72,7 @@ A platform built on Wordpress for users to share short stories. Includes work fr
 
 [http://thousandonestories.com](Visit)
 
-_Source code of older projects_
+<a name="source">_Source code of older projects_</a>
 
 __Monk vs Ninjas 3d__
 
