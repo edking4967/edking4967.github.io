@@ -60,13 +60,13 @@ __The Crystal Dragon__
 
 A series of adventure stories.
 
-[http://newcrystaldragon.wordpress.com/](Read)
+[Read](http://newcrystaldragon.wordpress.com/)
 
 __Other stories__
 
-[http://www.flatironsliteraryreview.com/2015/03/09/song-for-bob-dylan-by-ed-king/](Song for Bob Dylan)
-[https://culturedvultures.com/short-stories-the-origins-of-roberto-blanco/](The Origins of Roberto Blanco)
-[https://www.colorado.edu/honorsjournal/archives/2014/fiction](Fireworks)
+[Song for Bob Dylan](http://www.flatironsliteraryreview.com/2015/03/09/song-for-bob-dylan-by-ed-king/)
+[The Origins of Roberto Blanco](https://culturedvultures.com/short-stories-the-origins-of-roberto-blanco/)
+[Fireworks](https://www.colorado.edu/honorsjournal/archives/2014/fiction)
 
 <a name="web">_Web_</a>
 
