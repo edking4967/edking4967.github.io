@@ -9,7 +9,13 @@ __Monk vs Ninjas 3d__
 
 ![Screenshot of Monk vs Ninjas 3d]({{ site.url }}/assets/lighting.gif)
 
+[Play](http://thousandonestories.com/mvn-demo-3)
+
 __Transmission from Planet X__
+
+![Screenshot of Transmission From Planet X]({{ site.url }}/assets/transmission.gif)
+
+[Play](http://thousandonestories.com/transmission-from-planet-x)
 
 __Monk vs Ninjas Android__
 
