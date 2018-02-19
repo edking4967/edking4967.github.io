@@ -65,7 +65,9 @@ A series of adventure stories.
 __Other stories__
 
 [Song for Bob Dylan](http://www.flatironsliteraryreview.com/2015/03/09/song-for-bob-dylan-by-ed-king/)
+
 [The Origins of Roberto Blanco](https://culturedvultures.com/short-stories-the-origins-of-roberto-blanco/)
+
 [Fireworks](https://www.colorado.edu/honorsjournal/archives/2014/fiction)
 
 <a name="web">_Web_</a>
