@@ -47,6 +47,16 @@ Submission for Itch.io “A Game By Its Cover” Game Jam, 2016. As the heroic c
 
 [Play](https://thousandone.itch.io/rainbow-sword)
 
+_Stories_
+
+__The Crystal Dragon__
+
+![Screenshot of A Thousand and One Stories]({{ site.url }}/assets/crystal-dragon.png)
+
+A series of adventure stories.
+
+[http://newcrystaldragon.wordpress.com/](Read)
+
 _Web_
 
 __A Thousand and One Stories__
