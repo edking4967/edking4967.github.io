@@ -5,6 +5,8 @@ permalink: /portfolio/
 tags: portfolio
 ---
 
+_Games_
+
 __Monk vs Ninjas 3d__
 
 ![Screenshot of Monk vs Ninjas 3d]({{ site.url }}/assets/lighting.gif)
@@ -45,6 +47,16 @@ Submission for Itch.io “A Game By Its Cover” Game Jam, 2016. As the heroic c
 
 [Play](https://thousandone.itch.io/rainbow-sword)
 
+_Web_
+
+__A Thousand and One Stories__
+
+![Screenshot of A Thousand and One Stories]({{ site.url }}/assets/thousandone.png)
+
+A platform built on Wordpress for users to share short stories. Includes work from more than 50 authors, including authors published in The Atlantic and the Boston Globe.
+
+[http://thousandonestories.com](Visit)
+
 _Source code of older projects_
 
 __Monk vs Ninjas 3d__
@@ -71,10 +83,4 @@ __Monk vs Ninjas Unity__
 
 A Unity implementation of Monk vs Ninjas. 
 
-__A Thousand and One Stories__
 
-![Screenshot of A Thousand and One Stories]({{ site.url }}/assets/thousandone.png)
-
-A platform built on Wordpress for users to share short stories.
-
-[http://thousandonestories.com](Visit)
