@@ -45,6 +45,8 @@ Submission for Itch.io “A Game By Its Cover” Game Jam, 2016. As the heroic c
 
 [Play](https://thousandone.itch.io/rainbow-sword)
 
+_Source code of older projects_
+
 __Monk vs Ninjas 3d__
 
 ![Screenshot of Monk vs Ninjas 3d]({{ site.url }}/assets/mvn_3d.png)
