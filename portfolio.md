@@ -4,6 +4,10 @@ title: Portfolio
 permalink: /portfolio/
 tags: portfolio
 ---
+
+__Monk vs Ninjas 3d__
+![Screenshot of Monk vs Ninjas 3d]({{ site.url }}/assets/daynight.gif)
+
 __Transmission from Planet X__
 
 __Not in My Backyard!__
