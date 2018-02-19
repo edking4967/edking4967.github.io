@@ -4,9 +4,9 @@ title: Portfolio
 permalink: /portfolio/
 tags: portfolio
 ---
-[Games](#games)
-[Stories](#stories)
-[Web](#web)
+[Games](#games) ·
+[Stories](#stories) ·
+[Web](#web) ·
 [Source code](#source)
 
 
