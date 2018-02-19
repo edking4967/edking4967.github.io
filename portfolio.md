@@ -62,6 +62,12 @@ A series of adventure stories.
 
 [http://newcrystaldragon.wordpress.com/](Read)
 
+__Other stories__
+
+[http://www.flatironsliteraryreview.com/2015/03/09/song-for-bob-dylan-by-ed-king/](Song for Bob Dylan)
+[https://culturedvultures.com/short-stories-the-origins-of-roberto-blanco/](The Origins of Roberto Blanco)
+[https://www.colorado.edu/honorsjournal/archives/2014/fiction](Fireworks)
+
 <a name="web">_Web_</a>
 
 __A Thousand and One Stories__
