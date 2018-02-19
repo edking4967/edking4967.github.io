@@ -21,6 +21,8 @@ __Monk vs Ninjas Android__
 
 ![Screenshot of Monk vs Ninjas android]({{ site.url }}/assets/daynight.gif)
 
+[Google Play](https://play.google.com/store/apps/details?id=com.thousandonestories.game&hl=en)
+
 __Not in My Backyard!__
 
 __Cube Office__
