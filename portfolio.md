@@ -16,7 +16,7 @@ __Monk vs Ninjas 3d__
 
 ![Screenshot of Monk vs Ninjas 3d]({{ site.url }}/assets/lighting.gif)
 
-[Play](http://thousandonestories.com/mvn-demo-3)
+[Play](http://thousandone.itch.io/monk-vs-ninjas)
 
 __Transmission from Planet X__
 
