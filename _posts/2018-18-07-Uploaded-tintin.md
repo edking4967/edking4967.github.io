@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Uploaded Tintin: a Python app to use real-world geographic data in games
+title: Uploaded Tintin, a Python app to use real-world geographic data in games
 tags:
 - monk-vs-ninjas updates gamedev
 ---
