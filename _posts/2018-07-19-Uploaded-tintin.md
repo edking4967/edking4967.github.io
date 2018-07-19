@@ -4,6 +4,9 @@ title: Uploaded Tintin, a Python app to use real-world geographic data in games
 tags:
 - gamedev
 ---
+
+![Screenshot of environment simulator]({{ site.url }}/assets/environment_sim.png)
+
 Hey, internet! 
 
 I just uploaded Tintin, a set of tools to help incorporate geographical data into games. Currently, it exits in two parts: an environment simulator and an elevation data generator, primarily for Unity. 
