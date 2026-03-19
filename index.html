@@ -1,1 +1,315 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edward King | Software Engineer &amp; Educator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --accent: #3b82f6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fff;
+            scroll-behavior: smooth;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .logo { font-weight: 700; font-size: 1.2rem; color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--secondary); font-weight: 500; }
+
+        header {
+            padding: 100px 10% 60px;
+            background: linear-gradient(135deg, #f1f5f9 0%, #fff 100%);
+            text-align: center;
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+        .subtitle { font-size: 1.5rem; color: var(--secondary); margin-bottom: 1.5rem; }
+
+        section { padding: 80px 10%; }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            border-left: 5px solid var(--primary);
+            padding-left: 15px;
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+
+        .card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .date { color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; display: block; }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+
+        .tag {
+            background: #eff6ff;
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 10%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">EK.</div>
+    <ul class="nav-links">
+        
+        <li><a href="https://edkingportfolio.github.io/resume/">Resume</a></li>
+        
+        <li><a href="#experience">Experience</a></li>
+        
+        <li><a href="#projects">Projects</a></li>
+        
+        <li><a href="#teaching">Teaching</a></li>
+        
+        <li><a href="#education">Education</a></li>
+        
+    </ul>
+</nav>
+
+<header>
+    <h1>Edward King, M.Ed.</h1>
+    <p class="subtitle">Software Engineer &amp; Educator</p>
+    <p style="max-width:700px;margin:0 auto 2rem;">
+        Software engineer with 5+ years’ experience in C++, Python, and web development. Passionate about building complex systems and designing STEM curricula.
+
+    </p>
+    <div class="contact-bar">
+        <a href="mailto:ed.king4967@gmail.com">ed.king4967@gmail.com</a>
+        <span>•</span>
+        <a href="http://edkingportfolio.weebly.com/" target="_blank">Teaching Portfolio</a>
+    </div>
+</header>
+
+<section id="experience">
+    <h2 class="section-title">Engineering Experience</h2>
+    <div class="grid">
+        
+        <div class="card">
+            <span class="date">2016 — 2017</span>
+            <h3>Web Developer @ In-Situ</h3>
+            <p>Aggregated water quality data for web applications using cloud infrastructure.</p>
+            <div class="tags">
+                
+                <span class="tag">Flask</span>
+                
+                <span class="tag">Python</span>
+                
+                <span class="tag">Angular</span>
+                
+                <span class="tag">GCP</span>
+                
+            </div>
+        </div>
+        
+        <div class="card">
+            <span class="date">2014 — 2015</span>
+            <h3>Firmware Engineer @ NetApp</h3>
+            <p>Developed cloud backup solutions for large-scale storage systems.</p>
+            <div class="tags">
+                
+                <span class="tag">C++</span>
+                
+                <span class="tag">Vim</span>
+                
+                <span class="tag">Tmux</span>
+                
+            </div>
+        </div>
+        
+        <div class="card">
+            <span class="date">2009 — 2011</span>
+            <h3>Electrical Power Systems @ CU Space Grant</h3>
+            <p>Engineered power systems for research satellites in lower Earth orbit.</p>
+            <div class="tags">
+                
+                <span class="tag">C</span>
+                
+                <span class="tag">C++</span>
+                
+                <span class="tag">One Wire Bus</span>
+                
+                <span class="tag">Soldering</span>
+                
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+
+<section id="projects" style="background-color:#f8fafc;">
+    <h2 class="section-title">Key Projects</h2>
+    <div class="grid">
+        
+        <div class="card">
+            <h3><a href="https://edking4967.pythonanywhere.com">Quill</a></h3>
+            <p>Writing tracking software to help writers manage complex projects. <a href="https://edking4967.pythonanywhere.com">Check it out!</a></p>
+            <div class="tags">
+                
+                <span class="tag">Flask</span>
+                
+                <span class="tag">React</span>
+                
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>Game Development</h3>
+            <p>Created 3D game using Unity/C++ and used Python to feed elevation data into the game world.</p>
+            <div class="tags">
+                
+                <span class="tag">Unity</span>
+                
+                <span class="tag">C#</span>
+                
+                <span class="tag">Data Analysis</span>
+                
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>A Thousand and One Stories</h3>
+            <p>A literary journal hosting 100+ stories built with WordPress.</p>
+            <div class="tags">
+                
+                <span class="tag">PHP</span>
+                
+                <span class="tag">Python</span>
+                
+                <span class="tag">AWS</span>
+                
+                <span class="tag">Heroku</span>
+                
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>Guitar Synthesizer</h3>
+            <p>Digital signal processing project focusing on waveform generation.</p>
+            <div class="tags">
+                
+                <span class="tag">C++</span>
+                
+                <span class="tag">Fourier Transform</span>
+                
+                <span class="tag">Android</span>
+                
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<section id="education">
+    <div class="grid">
+        <div>
+            <h2 class="section-title">Education</h2>
+            
+            <div class="edu-item">
+                <h4>Colorado State University</h4>
+                <p>M.Ed. + Teacher Licensure (GPA 4.0)</p>
+            </div>
+            
+            <div class="edu-item">
+                <h4>University of Colorado Boulder</h4>
+                <p>B.A. English &amp; Minor in Electrical Engineering</p>
+            </div>
+            
+        </div>
+        <div>
+            <h2 class="section-title">Languages</h2>
+            
+            <p><strong>English</strong> (Native)</p>
+            
+            <p><strong>Spanish</strong> (Intermediate)</p>
+            
+            <p><strong>Chinese</strong> (Intermediate - Xi&#39;an Jiaotong University)</p>
+            
+        </div>
+    </div>
+</section>
+
+<section id="teaching">
+    <h2 class="section-title">Teaching & Leadership</h2>
+    <div class="grid">
+        
+        <div class="card">
+            <span class="date">2021 — Present</span>
+            <h3>STEM Teacher @ The STEAD School</h3>
+            <p>Teaching AP Computer Science, Engineering, and Programming.</p>
+            <div class="tags">
+                
+                <span class="tag">Java</span>
+                
+                <span class="tag">Python</span>
+                
+                <span class="tag">SketchUp</span>
+                
+            </div>
+        </div>
+        
+        <div class="card">
+            <span class="date">2011 — 2012</span>
+            <h3>Field Interviewer @ NapoNet (Peru)</h3>
+            <p>Community outreach and maintenance for a UN-commissioned wireless network.</p>
+            <div class="tags">
+                
+                <span class="tag">Networking</span>
+                
+                <span class="tag">Spanish</span>
+                
+                <span class="tag">Grant Writing</span>
+                
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2023 Edward King, M.Ed.. Built for performance and clarity.</p>
+</footer>
+
+</body>
+</html>

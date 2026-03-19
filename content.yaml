@@ -1,0 +1,92 @@
+site:
+  title: "Edward King | Software Engineer & Educator"
+  logo: "EK."
+  year: 2023
+  nav:
+    - label: "Resume"
+      url: "https://edkingportfolio.github.io/resume/"
+    - label: "Experience"
+      url: "#experience"
+    - label: "Projects"
+      url: "#projects"
+    - label: "Teaching"
+      url: "#teaching"
+    - label: "Education"
+      url: "#education"
+
+profile:
+  name: "Edward King, M.Ed."
+  subtitle: "Software Engineer & Educator"
+  summary: >
+    Software engineer with 5+ years’ experience in C++, Python, and web development.
+    Passionate about building complex systems and designing STEM curricula.
+  email: "ed.king4967@gmail.com"
+  portfolio: "http://edkingportfolio.weebly.com/"
+
+experience:
+  - date: "2016 — 2017"
+    title: "Web Developer"
+    company: "In-Situ"
+    description: "Aggregated water quality data for web applications using cloud infrastructure."
+    skills: ["Flask", "Python", "Angular", "GCP"]
+
+  - date: "2014 — 2015"
+    title: "Firmware Engineer"
+    company: "NetApp"
+    description: "Developed cloud backup solutions for large-scale storage systems."
+    skills: ["C++", "Vim", "Tmux"]
+
+  - date: "2009 — 2011"
+    title: "Electrical Power Systems"
+    company: "CU Space Grant"
+    description: "Engineered power systems for research satellites in lower Earth orbit."
+    skills: ["C", "C++", "One Wire Bus", "Soldering"]
+
+teaching:
+  - date: "2021 — Present"
+    title: "STEM Teacher"
+    organization: "The STEAD School"
+    description: "Teaching AP Computer Science, Engineering, and Programming."
+    skills: ["Java", "Python", "SketchUp"]
+
+  - date: "2011 — 2012"
+    title: "Field Interviewer"
+    organization: "NapoNet (Peru)"
+    description: "Community outreach and maintenance for a UN-commissioned wireless network."
+    skills: ["Networking", "Spanish", "Grant Writing"]
+
+projects:
+
+  - name: "Quill"
+    description: "Writing tracking software to help writers manage complex projects. <a href=\"edking4967.pythonanywhere.com\">Link</a>"
+    skills: ["Flask", "React"]
+
+  - name: "Game Development"
+    description: "Created 3D game using Unity/C++ and used Python to feed elevation data into the game world."
+    skills: ["Unity", "C#", "Data Analysis"]
+
+  - name: "A Thousand and One Stories"
+    description: "A literary journal hosting 100+ stories built with WordPress."
+    skills: ["PHP", "Python", "AWS", "Heroku"]
+
+  - name: "Guitar Synthesizer"
+    description: "Digital signal processing project focusing on waveform generation."
+    skills: ["C++", "Fourier Transform", "Android"]
+
+education:
+  - institution: "Colorado State University"
+    degree: "M.Ed. + Teacher Licensure (GPA 4.0)"
+
+  - institution: "University of Colorado Boulder"
+    degree: "B.A. English & Minor in Electrical Engineering"
+
+languages:
+  - name: "English"
+    level: "Native"
+
+  - name: "Spanish"
+    level: "Intermediate"
+
+  - name: "Chinese"
+    level: "Intermediate - Xi'an Jiaotong University"
+
