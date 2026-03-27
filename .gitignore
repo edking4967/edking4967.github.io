@@ -1,3 +1,8 @@
 tmp
 *.swp
 .DS_Store
+_site
+.jekyll-cache
+.jekyll-metadata
+venv
+Gemfile.lock
