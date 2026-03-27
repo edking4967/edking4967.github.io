@@ -1,0 +1,131 @@
+Introduction
+
+Background
+This project uses Fast Fourier Transforms to detect the note that is being played on the guitar. 
+[information on fast fourier transforms]
+
+Design and testing methodology
+
+Image: flow diagram of data from guitar to audio
+
+
+FAST FOURIER TRANSFORM DEVICE
+
+We decided to implement the Fast Fourier Transform itself on the LPCXpresso device so that a minimal amount of data would have to be transmitted over bluetooth, reducing latency.
+
+We started out with an FFT library written for LPC devices. However, the library did not allow us to perform data on enough samples: when we increased the samples to a reasonable amount, the LPC board would crash. We switched over to a different FFT library found online: integer_fft.c. integer_fft.c is a simple C library that takes input data in the time domain in the format of ints, and converts it to data in the frequency domain in real and imaginary form. 
+
+A key testing step at this point in the process was making sure that the data output by the FFT function was correct. Without this, our device would output the wrong frequencies and our synthesizer would play the wrong notes.
+
+In order to make sure that the frequencies were correct, first we measured the sample rate experimentally. By printing the data we read in from the LPC and plotting it in MATLAB, we were able to take a waveform from the waveform generator with a known frequency and measure the number of samples it took to count one wavelength. By dividing the period of the wave by the number of samples, we were able to determine that the actual sampling rate of the ADC was 15.463 kHz.
+
+In order to produce the FFT, we had to take the magnitude of the real and imaginary data. Next, we had to find the peak frequency in order to know what data to send to the Android app. This was fairly simple. Within a max and min frequency (typical guitar notes do not go below 75 Hz or above 500 Hz), we cycle through our FFT data and find the max. We send the max frequency over Bluetooth using the Bluetooth UART peripheral. In order to keep the size of the data within one byte, we did not send the actual frequency value, but rather the position of the peak within the FFT array, which could range from 0 to 511.
+
+Another key testing step here was to plot our FFT data using a waveform generator output against MATLAB's Fast Fourier Transform function. We found that the results were very similar, with the same frequency peaks.
+
+Image: comparison of MATLAB data vs. LPC data
+
+Next, we had to take actual data from the guitar. We ran into an obstacle here: the LPCXpresso's ADC does not read negative values, and audio signals are a sin wave centered at zero, so they have a negative component. Therefore, we had to boost the signal in order to read it with the ADC.
+
+We originally wanted to use an amplifier circuit with an op amp and resistors. However, when we set up the hardware, we found that the op amp produced a constant value rather than the value that we expected. After experimentation, we found that an ideal way to boost the signal was to use an already-existing audio mixer to amplify the signal, and then simply average in a DC offset using a passive averager circuit. This boosted the signal and also allowed us to use the mixer's low pass filter settings. Cutting off high frequencies let us reduce the risk that our frequency detectors would output false positives for frequencies higher than the fundamental.
+
+Image: passive averager circuit with guitar mixer.
+
+SYNTHESIZER
+Terminology
+In order to play audio on Android, you need to create a buffer of a certain size and write it to an AudioTrack object. Since there is a larger buffer in our program that stores multiple notes—many times the size of the final audio buffer—in order to avoid confusion in our naming, we called this small buffer a “frame.” 
+
+We initially started from Victor Lazzarini's online tutorial, “A simple synth in Android: a step-by-step guide using the Java SDK.” This tutorial demonstrated a very basic synth. The synth starts off at 440 Hz, and generates a set of data large enough to fill one frame for a sin wave at this frequency. This frame is then immediately written to the Android AudioTrack, and this code all loops so that the note plays continuously. Later on in the tutorial, a control is implemented to enter a different frequency, thus changing the pitch of the note.
+
+This tutorial did implement a simple synth, but it did not have all of the functionality that we wanted from our synthesizer. The synth simply plays a sustained tone at the same amplitude, and allows you to change the pitch. While this technically allows you to play a musical note, it does not sound musical. We wanted to design a synthesizer that could play notes with a volume envelope, giving the notes a musical character, and that could play multiple notes at once.
+
+In order to do this, we first wrote a system where a note of a specific frequency could be played. Instead of the sound generation code running continuously inside a while loop, we created buttons with onTouchListeners that called a playNote function. The playNote function looked like this:
+public void playNote(float freq, int amp, int note_length) {
+	 int i,j;			 
+	 short samples_arr[] = new short[frame_size*note_length];
+	 for( i=0; i < frame_size*note_length; i++){ 
+		samples_arr[i] = (short) (amp * ( (float) Math.sin(ph) );
+	}
+		
+	ph += twopi*freq/sr;
+	 ///////
+	 for(i=0;i<note_length;i++)
+	 {
+		 audioTrack.write( samples_arr, i*frame_size, frame_size); 
+	//The second argument to this function is the offset to start from in the array.
+	 }
+	 ///////
+}
+
+The upper for loop writes the entire note to a buffer of size frame_size * note_length. The note, in samples, is a multiple of the number of samples that are in one frame. The lower for loop writes the note frame by frame to the audioTrack object, playing the data stored in each frame through the Android device's audio system. In this code snippet, we created a larger buffer that holds a note, which we then played frame by frame. We would use this structure in all of our later code.
+
+Image: frames being played from a larger buffer.
+
+The next step was adding a volume envelope. Most real synthesizers, and all acoustic instruments, have a volume envelope to the notes that they play. The note starts from zero amplitude and reaches a peak amplitude over time. This is called the “attack” phase. Once they reach the peak amplitude, they stay at this level for some amount of time and decay back to zero.
+
+Image: wave with an envelope
+
+To simplify our design, we only included an attack and decay phase. Once the note hits peak amplitude, it immediately starts to decay back to zero. To implement this, we included the following code:
+
+	if(i < attack)
+	{
+		envelope = (float) i / (float) attack;
+	}
+	else
+	{
+		envelope = (1 - ( (float) i ) / ( (float) buffer_size*note_length) ));
+	}
+We then multiplied the waveform generated in the first for loop above by the “envelope” variable. This has the effect of making the amplitude grow to 1 when i is less than attack, and making it decay until the end of the note length.
+
+The final technical challenge to writing the synthesizer was to enable it to play multiple notes at once. This meant sending the notes to an intervening buffer where they would be added, before being sent to the audio system to play.
+
+Since the main buffer would be somewhat complex, we decided to make it its own class, MainBuffer. We then added the following in the main loop of the application:
+
+	if( mainBuff.playReady() )  // if there is a frame to play
+   	{
+   		mainBuff.playNextFrame(); // play the frame
+   	}
+The logic of this is simple: each time we enter the main loop, check if there is a valid frame to play. If so, then play it.
+
+We considered a linked list to implement the large buffer, where the notes would be written to and played from. However, in order make things as simple as possible, we settled on a circular buffer. We created a Frame class which simply contained an array of shorts, the length of one frame. The MainBuffer class contains an array of Frames size note_length * 10. That is, it can contain audio data up to the size of ten notes. After this, it starts to overwrite data in its circular buffer.
+
+The next design consideration was how to keep track of where we were in the buffer. We implemented a “playhead” variable to point to the currently playing frame and indicate where to write new frames. Therefore, the playNextFrame() function simply reads:
+
+		public void playNextFrame()
+		 {
+			 playFrame( playhead );
+			 playhead++;
+			 if(playhead == notelength*10) // reached end of main buffer
+			 {
+				 playhead = 0;   // go back to the beginning
+			 }
+		 }
+We also implemented an array of booleans inside the MainBuffer class to denote whether a given frame has valid, unplayed audio data:
+			 frames_valid = new boolean[note_length*10];
+The playReady() function showed above checks this value for the frame at playhead. After playing a frame, the frame is marked as invalid so it will not be played again until a new frame is written at that location.
+
+Now that we know where to write the sample and how to mark it valid, we just need to write it to the frame in the main buffer. Each time the writeSample function writes a sample, it adds it to what is already there in the main buffer:
+
+data[offset] += datapt;  
+
+Therefore, if a note has been written to the buffer but has not finished playing through the audio system, the new note will get added to it. In terms of music, this produces the sensation of two notes being played at the same time. The playFrame() function will take care of actually writing the data to the audio system and playing it.
+
+Image: writing frames to the MainBuffer
+
+Testing
+We tested the synthesizer thoroughly while integrating it with the guitar. In theory, since the buffer overwrites itself when it gets full, there shouldn't be any memory issues, and we did not experience any crashes with our app while testing. Furthermore, we tested the synthesizer by itself through a range of octaves, and the sound was correct across the range. Therefore, we met our goal of producing a functional synthesizer.
+
+Another important test that we did was to set the Android app to print out the frequencies it was receiving. That way, we could make sure that the frequencies the LPC was sending were within a reasonable range, even when the LPC's debug printing functions were disabled. Though we noticed some strange values at first, we improved our algorithm from detecting the first peak to detecting the highest peak, and we also used a low pass filter on our signal before computing the FFT. After both of these modifications, the frequency values received by the Android app were correct after extensive testing.
+
+BLUETOOTH TRANSMISSION
+
+The Bluetooth transmission portion of the project was fairly simple. We used the Android BluetoothChat example project as a basis. We had to change the UUID in the code so that the code would expect input from a serial device like ours, and not only another BluetoothChat client. Once this was done, the Android app received data bytes sent by the LPCXpresso board. Then the only thing left to do was to convert the data received to a frequency and play the note.
+
+	//Convert frequency:
+	fr = (float) passval0 / (float) NUM_SAMPLES * (float) ADC_SAMPLE_RATE ; 
+
+                                
+      //Play the note received from the LPC:
+      mainBuff.addNote(fr, amp, att, nl, false, wf);
+
+

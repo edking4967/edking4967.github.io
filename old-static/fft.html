@@ -1,8 +1,16 @@
----
-layout: default
-title: FFT Guitar Synthesizer | Edward King
----
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edward King | Software Engineer &amp; Educator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
 <section id="fft" class="writeup-section">
     <h2 class="section-title">FFT Guitar Synthesizer</h2>
     <p class="writeup-intro">
@@ -30,7 +38,7 @@ title: FFT Guitar Synthesizer | Edward King
     <div class="writeup-block">
         <h3>Android Synthesizer — playNote</h3>
         <p>
-            Rather than running sound generation in an infinite loop, each button press triggers <code class="inline-code">playNote()</code>,
+            Rather than running sound generation in an infinite loop, each button press triggers <code style="background:#eff6ff;color:var(--primary);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.85em;">playNote()</code>,
             which fills a buffer of <em>frame_size × note_length</em> samples with a sine wave, then writes it to Android's AudioTrack frame by frame.
         </p>
 
@@ -89,7 +97,9 @@ samples_arr[i] = (<span class="ty">short</span>) (amp * envelope * ((<span class
             To play multiple notes simultaneously, incoming note data is accumulated into a circular <strong>MainBuffer</strong> (capacity: 10 notes)
             before being sent to the audio system. Each frame position carries a validity flag so that already-played frames are not replayed.
         </p>
-        <p>The main loop simply checks whether a valid frame is ready and, if so, plays it:</p>
+        <p>
+            The main loop simply checks whether a valid frame is ready and, if so, plays it:
+        </p>
 
         <div class="code-card">
             <div class="code-card-header">
@@ -104,7 +114,7 @@ samples_arr[i] = (<span class="ty">short</span>) (amp * envelope * ((<span class
         </div>
 
         <p style="margin-top:1.25rem;">
-            <code class="inline-code">playNextFrame()</code>
+            <code style="background:#eff6ff;color:var(--primary);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.85em;">playNextFrame()</code>
             advances a <em>playhead</em> through the circular buffer, wrapping back to zero once the end is reached:
         </p>
 
@@ -165,3 +175,4 @@ mainBuff.<span class="fn">addNote</span>(fr, amp, att, nl, <span class="kw">fals
         </div>
     </div>
 </section>
+</body>
