@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edward King | Software Engineer &amp; Educator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+<section id="fft" class="writeup-section">
+    <h2 class="section-title">FFT Guitar Synthesizer</h2>
+    <p class="writeup-intro">
+        A hardware/software project combining an LPCXpresso microcontroller, Fast Fourier Transforms, Bluetooth, and an Android synthesizer to detect guitar notes in real time and reproduce them digitally.
+    </p>
+
+    <!-- FFT Device -->
+    <div class="writeup-block">
+        <h3>FFT on the LPCXpresso</h3>
+        <p>
+            The FFT was implemented directly on the LPCXpresso so that only minimal data needed to travel over Bluetooth, reducing latency.
+            After evaluating several libraries, we settled on <strong>integer_fft.c</strong> — a lightweight C library that accepts time-domain integer samples
+            and returns real and imaginary frequency-domain components.
+        </p>
+        <p>
+            We verified our sampling rate empirically by capturing waveform-generator output in MATLAB and counting samples per wavelength,
+            confirming an actual ADC rate of <strong>15.463 kHz</strong>. The peak frequency is then found within the expected guitar range (75 – 500 Hz)
+            and its array index (0 – 511) is sent over Bluetooth UART in a single byte.
+        </p>
+    </div>
+
+    <hr class="writeup-divider">
+
+    <!-- Synthesizer -->
+    <div class="writeup-block">
+        <h3>Android Synthesizer — playNote</h3>
+        <p>
+            Rather than running sound generation in an infinite loop, each button press triggers <code style="background:#eff6ff;color:var(--primary);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.85em;">playNote()</code>,
+            which fills a buffer of <em>frame_size × note_length</em> samples with a sine wave, then writes it to Android's AudioTrack frame by frame.
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>Synthesizer.java</span>
+            </div>
+            <pre><code><span class="kw">public</span> <span class="ty">void</span> <span class="fn">playNote</span>(<span class="ty">float</span> freq, <span class="ty">int</span> amp, <span class="ty">int</span> note_length) {
+    <span class="ty">int</span> i, j;
+    <span class="ty">short</span> samples_arr[] = <span class="kw">new</span> <span class="ty">short</span>[frame_size * note_length];
+
+    <span class="kw">for</span> (i = <span class="nu">0</span>; i &lt; frame_size * note_length; i++) {
+        samples_arr[i] = (<span class="ty">short</span>) (amp * ((<span class="ty">float</span>) Math.<span class="fn">sin</span>(ph)));
+        ph += twopi * freq / sr;
+    }
+
+    <span class="kw">for</span> (i = <span class="nu">0</span>; i &lt; note_length; i++) {
+        <span class="cm">// second arg is the offset into the array</span>
+        audioTrack.<span class="fn">write</span>(samples_arr, i * frame_size, frame_size);
+    }
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="writeup-block">
+        <h3>Volume Envelope (Attack &amp; Decay)</h3>
+        <p>
+            A simple two-phase envelope shapes the amplitude of each note: it ramps from zero to peak during the <em>attack</em> phase,
+            then decays back to zero over the remainder of the note. The resulting scalar is multiplied into each sample before it is written to the buffer.
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>Envelope.java</span>
+            </div>
+            <pre><code><span class="kw">if</span> (i &lt; attack) {
+    envelope = (<span class="ty">float</span>) i / (<span class="ty">float</span>) attack;
+} <span class="kw">else</span> {
+    envelope = (<span class="nu">1</span> - ((<span class="ty">float</span>) i) / ((<span class="ty">float</span>) buffer_size * note_length));
+}
+
+<span class="cm">// multiply envelope into the waveform sample</span>
+samples_arr[i] = (<span class="ty">short</span>) (amp * envelope * ((<span class="ty">float</span>) Math.<span class="fn">sin</span>(ph)));</code></pre>
+        </div>
+    </div>
+
+    <div class="writeup-block">
+        <h3>MainBuffer — Polyphonic Playback</h3>
+        <p>
+            To play multiple notes simultaneously, incoming note data is accumulated into a circular <strong>MainBuffer</strong> (capacity: 10 notes)
+            before being sent to the audio system. Each frame position carries a validity flag so that already-played frames are not replayed.
+        </p>
+        <p>
+            The main loop simply checks whether a valid frame is ready and, if so, plays it:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>MainActivity.java — main loop</span>
+            </div>
+            <pre><code><span class="kw">if</span> (mainBuff.<span class="fn">playReady</span>()) {   <span class="cm">// a valid frame is waiting</span>
+    mainBuff.<span class="fn">playNextFrame</span>();
+}</code></pre>
+        </div>
+
+        <p style="margin-top:1.25rem;">
+            <code style="background:#eff6ff;color:var(--primary);padding:2px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:0.85em;">playNextFrame()</code>
+            advances a <em>playhead</em> through the circular buffer, wrapping back to zero once the end is reached:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>MainBuffer.java</span>
+            </div>
+            <pre><code><span class="kw">public</span> <span class="ty">void</span> <span class="fn">playNextFrame</span>() {
+    <span class="fn">playFrame</span>(playhead);
+    playhead++;
+    <span class="kw">if</span> (playhead == note_length * <span class="nu">10</span>) {  <span class="cm">// reached end of circular buffer</span>
+        playhead = <span class="nu">0</span>;
+    }
+}</code></pre>
+        </div>
+
+        <p style="margin-top:1.25rem;">
+            Writing a new note <em>adds</em> its samples to whatever is already in the buffer, producing the sensation of two notes sounding simultaneously:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>MainBuffer.java — writeSample</span>
+            </div>
+            <pre><code><span class="cm">// additive mix: new note blends with any already-playing audio</span>
+data[offset] += datapt;</code></pre>
+        </div>
+    </div>
+
+    <hr class="writeup-divider">
+
+    <!-- Bluetooth -->
+    <div class="writeup-block">
+        <h3>Bluetooth Transmission</h3>
+        <p>
+            The Android side is based on the BluetoothChat sample project, with the UUID updated to accept serial input from the LPCXpresso.
+            The single received byte — the FFT peak index — is converted back to a frequency and queued into the synthesizer:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>BluetoothReceiver.java</span>
+            </div>
+            <pre><code><span class="cm">// Reconstruct the frequency from the FFT peak index</span>
+fr = (<span class="ty">float</span>) passval0 / (<span class="ty">float</span>) NUM_SAMPLES * (<span class="ty">float</span>) ADC_SAMPLE_RATE;
+
+<span class="cm">// Queue the note into the polyphonic synthesizer</span>
+mainBuff.<span class="fn">addNote</span>(fr, amp, att, nl, <span class="kw">false</span>, wf);</code></pre>
+        </div>
+    </div>
+</section>
+</body>

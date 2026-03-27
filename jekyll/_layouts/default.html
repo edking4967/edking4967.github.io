@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.title | default: "Edward King | Software Engineer & Educator" }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="/assets/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+    <div class="logo"><a href="/" style="text-decoration:none;color:inherit;">EK.</a></div>
+    <ul class="nav-links">
+        <li><a href="https://edkingportfolio.github.io/resume/">Resume</a></li>
+        <li><a href="/#experience">Experience</a></li>
+        <li><a href="/#projects">Projects</a></li>
+        <li><a href="/#teaching">Teaching</a></li>
+        <li><a href="/#education">Education</a></li>
+        <li><a href="/fft/">FFT Project</a></li>
+    </ul>
+</nav>
+
+{{ content }}
+
+<footer>
+    <p>&copy; 2023 Edward King, M.Ed.. Built for performance and clarity.</p>
+</footer>
+
+</body>
+</html>
