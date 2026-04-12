@@ -1,0 +1,185 @@
+---
+layout: default
+title: Elevation Python Scripts | Edward King
+---
+
+<section id="python-scripts" class="writeup-section">
+    <h2 class="section-title">Mt. Fuji Elevation Python Scripts</h2>
+    <p class="writeup-intro">
+        Two Python scripts that process GeoTIFF elevation data into 3D mesh geometry and geographic coordinate lookups,
+        used to bring real-world terrain into a Unity scene.
+    </p>
+
+    <!-- processTif.py -->
+    <div class="writeup-block">
+        <h3>processTif.py — Reading &amp; Scaling the Elevation Grid</h3>
+        <p>
+            The script accepts a TIFF filename and an optional integer scale factor from the command line.
+            <code class="inline-code">tifffile.imread</code> loads the raw elevation array, then every
+            <em>n</em>-th row and column is sampled to produce a smaller grid before export.
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>processTif.py — load &amp; scale</span>
+            </div>
+            <pre><code><span class="kw">import</span> sys
+<span class="kw">from</span> tifffile <span class="kw">import</span> imread
+
+filename  = sys.argv[<span class="nu">1</span>]
+scalefactor = <span class="nu">1</span>
+<span class="kw">if</span> len(sys.argv) &gt; <span class="nu">2</span>:
+    scalefactor = <span class="fn">int</span>(sys.argv[<span class="nu">2</span>])
+
+elevData = <span class="fn">imread</span>(filename)
+
+elev = []
+<span class="kw">if</span> scalefactor != <span class="nu">1</span>:
+    <span class="kw">for</span> line <span class="kw">in</span> elevData[::scalefactor]:
+        elev.<span class="fn">append</span>(line[::scalefactor])
+<span class="kw">else</span>:
+    elev = elevData</code></pre>
+        </div>
+    </div>
+
+    <div class="writeup-block">
+        <h3>3D Surface Preview &amp; CSV Export</h3>
+        <p>
+            After scaling, the grid is written out as a CSV and immediately visualised as a 3D surface with
+            <code class="inline-code">matplotlib</code> so the data can be sanity-checked before the heavier
+            mesh-generation step.
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>processTif.py — plot &amp; export CSV</span>
+            </div>
+            <pre><code><span class="kw">import</span> csv
+<span class="kw">import</span> matplotlib.pyplot <span class="kw">as</span> plt
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="cm"># write grid to CSV</span>
+f = <span class="fn">open</span>(<span class="st">"gridexport.csv"</span>, <span class="st">'w'</span>)
+w = csv.<span class="fn">writer</span>(f)
+w.<span class="fn">writerows</span>(elev)
+f.<span class="fn">close</span>()
+
+<span class="cm"># 3-D preview</span>
+x = <span class="fn">range</span>(<span class="fn">int</span>(<span class="fn">len</span>(elevData[<span class="nu">0</span>]) / scalefactor))
+y = <span class="fn">range</span>(<span class="fn">int</span>(<span class="fn">len</span>(elevData)    / scalefactor))
+X, Y = np.<span class="fn">meshgrid</span>(x, y)
+
+hf = plt.<span class="fn">figure</span>()
+ha = hf.<span class="fn">add_subplot</span>(<span class="nu">111</span>, projection=<span class="st">'3d'</span>)
+ha.<span class="fn">plot_surface</span>(X, Y, elev)
+plt.<span class="fn">show</span>()</code></pre>
+        </div>
+    </div>
+
+    <div class="writeup-block">
+        <h3>Triangle Mesh Generation</h3>
+        <p>
+            Each 2×2 block of grid cells is split into two triangles using the standard quad-to-tri pattern,
+            producing a flat index list that Unity's Mesh API can consume directly.
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>processTif.py — quad triangulation</span>
+            </div>
+            <pre><code>matLen = <span class="fn">len</span>(elev[<span class="nu">0</span>])
+tris = []
+
+<span class="kw">for</span> i, row <span class="kw">in</span> <span class="fn">enumerate</span>(elev[:-<span class="nu">1</span>]):
+    <span class="kw">for</span> j, item <span class="kw">in</span> <span class="fn">enumerate</span>(row[:-<span class="nu">1</span>]):
+        index = i * matLen + j
+
+        <span class="cm"># first triangle  (top-left, top-right, bottom-left)</span>
+        tris.<span class="fn">append</span>(index)
+        tris.<span class="fn">append</span>(index + <span class="nu">1</span>)
+        tris.<span class="fn">append</span>(index + matLen)
+
+        <span class="cm"># second triangle (top-right, bottom-right, bottom-left)</span>
+        tris.<span class="fn">append</span>(index + <span class="nu">1</span>)
+        tris.<span class="fn">append</span>(index + matLen + <span class="nu">1</span>)
+        tris.<span class="fn">append</span>(index + matLen)</code></pre>
+        </div>
+    </div>
+
+    <div class="writeup-block">
+        <h3>JSON Export — Three Mesh Variants</h3>
+        <p>
+            <code class="inline-code">makeJson()</code> flattens the vertex grid into three parallel arrays
+            (X, Y, Z) and bundles them with the triangle index list. Three separate files are written:
+            the raw smooth mesh, a <em>slope-tile</em> variant where each 2×2 block is flattened to its
+            top-left value, and a <em>tile</em> variant that steps the value forward diagonally — both
+            useful for stylised low-poly terrain.
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>processTif.py — makeJson &amp; write</span>
+            </div>
+            <pre><code><span class="kw">def</span> <span class="fn">makeJson</span>(matrix, tris):
+    jsonObj = {<span class="st">"verticesX"</span>: [], <span class="st">"verticesY"</span>: [], <span class="st">"verticesZ"</span>: [], <span class="st">"tris"</span>: []}
+    <span class="kw">for</span> point <span class="kw">in</span> matrix:
+        jsonObj[<span class="st">"verticesX"</span>].<span class="fn">append</span>(<span class="fn">float</span>(point[<span class="nu">0</span>]))
+        jsonObj[<span class="st">"verticesY"</span>].<span class="fn">append</span>(<span class="fn">float</span>(point[<span class="nu">1</span>]))
+        jsonObj[<span class="st">"verticesZ"</span>].<span class="fn">append</span>(<span class="fn">float</span>(-point[<span class="nu">2</span>]))  <span class="cm"># negate for Unity's y-up</span>
+    jsonObj[<span class="st">"tris"</span>] = tris
+    <span class="kw">return</span> jsonObj
+
+<span class="cm"># smooth mesh</span>
+f = <span class="fn">open</span>(filename.<span class="fn">split</span>(<span class="st">'.'</span>)[<span class="nu">0</span>] + <span class="st">'.json'</span>, <span class="st">'w'</span>)
+f.<span class="fn">write</span>(json.<span class="fn">dumps</span>(<span class="fn">makeJson</span>(matrix, tris)))
+f.<span class="fn">close</span>()
+
+<span class="cm"># slope-tile and flat-tile variants follow the same pattern …</span></code></pre>
+        </div>
+    </div>
+
+    <hr class="writeup-divider">
+
+    <!-- coords_to_grid.py -->
+    <div class="writeup-block">
+        <h3>coords_to_grid.py — Geographic Coordinate Lookup</h3>
+        <p>
+            A single utility function maps a latitude/longitude pair to a floating-point row and column
+            within the elevation grid, given the grid's bounding box. The row is inverted
+            (<code class="inline-code">1 - …</code>) because TIFF rows run top-to-bottom while latitude
+            increases upward.
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>coords_to_grid.py</span>
+            </div>
+            <pre><code><span class="kw">def</span> <span class="fn">getGridPosition</span>(grid, lat, lng, latMin, latMax, longMin, longMax):
+    gridRows = <span class="fn">len</span>(grid)
+    gridCols = <span class="fn">len</span>(grid[<span class="nu">0</span>])
+
+    latStep = (latMax - latMin) / gridRows
+    lngStep = (longMax - longMin) / gridCols
+
+    row = ((<span class="nu">1</span> - (lat - latMin)) / latStep)
+    col = ((lng - longMin)         / lngStep)
+
+    <span class="kw">return</span> row, col</code></pre>
+        </div>
+    </div>
+</section>
