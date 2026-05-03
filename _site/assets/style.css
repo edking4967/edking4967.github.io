@@ -173,6 +173,92 @@ footer {
 .nu  { color: #f9a8d4; }   /* numbers */
 .op  { color: #94a3b8; }   /* operators */
 
+/* Prose styles for markdown-rendered pages */
+.writeup-section h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    border-left: 5px solid var(--primary);
+    padding-left: 15px;
+}
+
+.writeup-section h2 {
+    font-size: 1.4rem;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.writeup-section h3 {
+    font-size: 1.15rem;
+    margin-top: 2rem;
+    margin-bottom: 0.6rem;
+    color: var(--dark);
+}
+
+.writeup-section p {
+    color: #334155;
+    margin-bottom: 1.25rem;
+    max-width: 780px;
+    line-height: 1.75;
+}
+
+.writeup-section ul,
+.writeup-section ol {
+    margin: 0 0 1.25rem 1.5rem;
+    max-width: 780px;
+}
+
+.writeup-section li {
+    color: #334155;
+    line-height: 1.75;
+    margin-bottom: 0.3rem;
+}
+
+.writeup-section li ul,
+.writeup-section li ol {
+    margin-top: 0.3rem;
+    margin-bottom: 0;
+}
+
+.writeup-section hr {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 2.5rem 0;
+}
+
+.writeup-section pre {
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    overflow-x: auto;
+    margin: 1.25rem 0 1.75rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+
+.writeup-section pre code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: #e2e8f0;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+}
+
+.writeup-section code {
+    background: #eff6ff;
+    color: var(--primary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+}
+
+.writeup-section strong {
+    color: var(--dark);
+}
+
 .writeup-divider {
     border: none;
     border-top: 1px solid #e2e8f0;
