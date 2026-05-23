@@ -1,0 +1,332 @@
+---
+layout: default
+title: Edward King | AI Engineering Portfolio
+---
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    /* ── Fancy font overrides ── */
+    .ai-hero h1,
+    .quill-card h2,
+    .how-section .section-title,
+    .stack-section .section-title {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+    }
+
+    body, p, h3, span, a, li {
+        font-family: 'Inter', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero ── */
+    .ai-hero {
+        padding: 80px 10% 60px;
+        background: linear-gradient(135deg, #f1f5f9 0%, #eff6ff 60%, #fff 100%);
+        text-align: center;
+    }
+
+    .ai-hero .eyebrow {
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .ai-hero h1 {
+        font-size: 3.8rem;
+        color: var(--dark);
+        margin-bottom: 1rem;
+        line-height: 1.1;
+    }
+
+    .ai-hero .lead {
+        font-size: 1.1rem;
+        color: var(--secondary);
+        max-width: 620px;
+        margin: 0 auto 2rem;
+        line-height: 1.7;
+    }
+
+    /* ── Quill featured card ── */
+    .featured-section {
+        padding: 60px 10%;
+        background: #fff;
+    }
+
+    .quill-card {
+        background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%);
+        border-radius: 16px;
+        padding: 48px 52px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 40px;
+        align-items: center;
+        box-shadow: 0 12px 40px rgba(37,99,235,0.25);
+    }
+
+    .quill-card h2 {
+        font-size: 2.8rem;
+        color: #fff;
+        margin-bottom: 0.6rem;
+        line-height: 1.1;
+    }
+
+    .quill-card .quill-sub {
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #93c5fd;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .quill-card p {
+        color: #bfdbfe;
+        line-height: 1.65;
+        font-size: 0.97rem;
+        max-width: 540px;
+        margin-bottom: 1.5rem;
+    }
+
+    .quill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .quill-tag {
+        background: rgba(255,255,255,0.15);
+        color: #dbeafe;
+        border: 1px solid rgba(255,255,255,0.2);
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        font-weight: 500;
+    }
+
+    .quill-cta {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    .btn-demo {
+        display: inline-block;
+        background: #fff;
+        color: #1d4ed8;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 14px 32px;
+        border-radius: 10px;
+        text-decoration: none;
+        white-space: nowrap;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-demo:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        text-decoration: none;
+    }
+
+    .btn-demo-note {
+        font-size: 0.75rem;
+        color: #93c5fd;
+        text-align: center;
+    }
+
+    /* ── How I build ── */
+    .how-section {
+        padding: 60px 10%;
+        background: #f8fafc;
+    }
+
+    .how-section .section-title {
+        font-size: 2.6rem;
+        margin-bottom: 2.5rem;
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+    }
+
+    .how-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .how-card {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 1.75rem;
+    }
+
+    .how-card .icon {
+        font-size: 1.6rem;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .how-card h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+    }
+
+    .how-card p {
+        font-size: 0.88rem;
+        color: var(--secondary);
+        line-height: 1.65;
+    }
+
+    /* ── Stack ── */
+    .stack-section {
+        padding: 50px 10%;
+        background: #fff;
+    }
+
+    .stack-section .section-title {
+        font-size: 2.6rem;
+        margin-bottom: 2rem;
+        border-left: 5px solid var(--primary);
+        padding-left: 15px;
+    }
+
+    .stack-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .stack-tag {
+        background: #eff6ff;
+        color: var(--primary);
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+        .quill-card {
+            grid-template-columns: 1fr;
+            padding: 32px 28px;
+        }
+        .quill-cta { align-items: flex-start; }
+        .ai-hero h1 { font-size: 2.8rem; }
+        .quill-card h2 { font-size: 2.2rem; }
+    }
+</style>
+
+<!-- Hero -->
+<div class="ai-hero">
+    <span class="eyebrow">AI Engineering Portfolio</span>
+    <h1>Building with AI<br>as the Default Workflow</h1>
+    <p class="lead">
+        I build production software using AI coding tools every day — Claude Code is my primary
+        development environment. Currently shipping a full-stack product with agentic AI features
+        on the Anthropic Claude API.
+    </p>
+</div>
+
+<!-- Quill featured card -->
+<section class="featured-section">
+    <div class="quill-card">
+        <div class="quill-info">
+            <span class="quill-sub">Featured Project</span>
+            <h2>Quill</h2>
+            <p>
+                A full-stack writing tracker I built solo — React/Vite/TypeScript frontend,
+                Python/Flask REST API, SQLite persistence — deployed end-to-end on PythonAnywhere.
+                Includes agentic AI features built on Anthropic's Claude API: tool-calling agents,
+                prompt chaining, memory management, and automated workflow tooling.
+            </p>
+            <div class="quill-tags">
+                <span class="quill-tag">TypeScript</span>
+                <span class="quill-tag">React</span>
+                <span class="quill-tag">Python / Flask</span>
+                <span class="quill-tag">Anthropic Claude API</span>
+                <span class="quill-tag">Agentic AI</span>
+                <span class="quill-tag">Tool-calling</span>
+                <span class="quill-tag">SQLite</span>
+                <span class="quill-tag">Claude Code</span>
+            </div>
+        </div>
+        <div class="quill-cta">
+            <a href="https://edking4967.pythonanywhere.com/?demo" target="_blank" class="btn-demo">
+                Try the Demo →
+            </a>
+            <span class="btn-demo-note">No account required</span>
+        </div>
+    </div>
+</section>
+
+<!-- How I build -->
+<section class="how-section">
+    <h2 class="section-title">How I Build</h2>
+    <div class="how-grid">
+        <div class="how-card">
+            <span class="icon">🤖</span>
+            <h3>Claude Code as Primary IDE</h3>
+            <p>
+                Not a productivity gimmick — the actual baseline of how I build. I use Claude Code
+                for everything from feature design to deployment config. It multiplies engineering
+                rigor, not just throughput.
+            </p>
+        </div>
+        <div class="how-card">
+            <span class="icon">⚙️</span>
+            <h3>Agentic AI Integration</h3>
+            <p>
+                I build real agentic workflows into products using the Anthropic Claude API —
+                tool-calling agents, prompt chaining, memory management, structured output, and
+                MCP-compatible patterns.
+            </p>
+        </div>
+        <div class="how-card">
+            <span class="icon">📦</span>
+            <h3>End-to-End Ownership</h3>
+            <p>
+                Architecture through deployment. I design data models, build the API layer, ship
+                the frontend, handle CORS and auth, and manage production releases — no spec required.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Stack -->
+<section class="stack-section">
+    <h2 class="section-title">Current Stack</h2>
+    <div class="stack-row">
+        <span class="stack-tag">TypeScript</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Vite</span>
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Flask</span>
+        <span class="stack-tag">SQLite / PostgreSQL</span>
+        <span class="stack-tag">REST APIs</span>
+        <span class="stack-tag">Node.js</span>
+    </div>
+    <div class="stack-row">
+        <span class="stack-tag">Anthropic Claude API</span>
+        <span class="stack-tag">Claude Code</span>
+        <span class="stack-tag">Tool-calling / MCP</span>
+        <span class="stack-tag">Agentic workflows</span>
+        <span class="stack-tag">Prompt chaining</span>
+    </div>
+</section>
