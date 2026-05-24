@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edward King — Game Dev Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #4ade80;
+    --accent-dim: rgba(74,222,128,0.15);
+    --bg: #111318;
+    --bg2: #181c23;
+    --border: #252a35;
+    --text: #c9d1dc;
+    --muted: #5a6374;
+    --white: #f0f4f8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 6%;
+    background: rgba(17,19,24,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    padding: 90px 6% 70px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.55rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    opacity: 0.75;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero p {
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-link {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .hero-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* SECTIONS */
+  section { padding: 70px 6%; }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* FEATURED */
+  .featured { background: var(--bg2); }
+
+  .featured-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  @media (max-width: 800px) {
+    .featured-grid { grid-template-columns: 1fr; }
+  }
+
+  .video-wrap {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .video-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .video-tab {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--border);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .video-tab.active { color: var(--accent); }
+  .video-tab:hover:not(.active) { color: var(--text); }
+
+  .video-wrap video {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/9;
+    background: #000;
+  }
+
+  .featured-info { padding-top: 0.25rem; }
+
+  .featured-info .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .featured-info h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .featured-info p {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .tag {
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 3px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+
+  .tag-neutral {
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+  }
+
+  .links {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.55rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-solid {
+    background: var(--accent);
+    color: var(--bg);
+    border: 1px solid var(--accent);
+  }
+
+  .btn-solid:hover { opacity: 0.85; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--text);
+    color: var(--white);
+  }
+
+  /* GAME GRID */
+  .games { background: var(--bg); }
+
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .game-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s;
+  }
+
+  .game-card:hover { border-color: rgba(74,222,128,0.3); }
+
+  .game-thumb {
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .thumb-1 { background: linear-gradient(135deg, #1a1128 0%, #2d1a4a 100%); }
+  .thumb-2 { background: linear-gradient(135deg, #0e1a2e 0%, #1a3050 100%); }
+  .thumb-3 { background: linear-gradient(135deg, #0e1a10 0%, #1a3020 100%); }
+  .thumb-4 { background: linear-gradient(135deg, #1a1a10 0%, #2a2a18 100%); }
+  .thumb-5 { background: linear-gradient(135deg, #101520 0%, #1a2030 100%); }
+
+  .game-body {
+    padding: 1.1rem 1.25rem 1.4rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .game-year {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  .game-body h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .game-body p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+
+  .game-links {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+
+  .game-link {
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 3px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+
+  .game-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .game-link.primary {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: rgba(74,222,128,0.25);
+  }
+
+  .game-link.primary:hover {
+    background: rgba(74,222,128,0.25);
+    border-color: var(--accent);
+  }
+
+  /* BACK / FOOTER */
+  .back {
+    padding: 50px 6%;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .back p {
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  footer {
+    padding: 2rem 6%;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  footer p {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 540px) {
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">EK</a>
+  <ul class="nav-links">
+    <li><a href="#featured">Featured</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="index.html">Main Site</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">Game Dev Portfolio</div>
+  <h1>Edward <em>King</em></h1>
+  <p>Game developer and software engineer. Building games since 2014 — from Android platformers to 3D Unity projects powered by real-world terrain data.</p>
+  <a href="#featured" class="hero-link">View Projects</a>
+</div>
+
+<section class="featured" id="featured">
+  <div class="section-label"><h2>Featured Project</h2></div>
+
+  <div class="featured-grid">
+    <div class="video-wrap">
+      <div class="video-tabs">
+        <button class="video-tab active" onclick="switchVideo(this, 'movs/wake up.mp4')">Wake up</button>
+        <button class="video-tab" onclick="switchVideo(this, 'movs/loop.mp4')">Game loop</button>
+      </div>
+      <video id="main-video" controls autoplay muted loop playsinline>
+        <source src="movs/wake up.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="featured-info">
+      <div class="label">Flagship</div>
+      <h3>Monk vs Ninjas 3D</h3>
+      <p>
+        A 3D action platformer built in Unity with C#. Terrain is shaped by real-world Mt. Fuji elevation data processed through a custom Python pipeline — Monk fights ninjas across authentic mountain topography.
+      </p>
+      <div class="tags">
+        <span class="tag">Unity</span>
+        <span class="tag">C#</span>
+        <span class="tag">Python</span>
+        <span class="tag">Blender</span>
+        <span class="tag">3D Modeling</span>
+        <span class="tag">Elevation Data</span>
+      </div>
+      <div class="links">
+          <!--<a href="http://thousandonestories.com/mvn3d" target="_blank" class="btn btn-solid">Play</a>-->
+        <a href="http://github.com/edking4967/mvn-3d" target="_blank" class="btn btn-outline">Source Code</a>
+        <a href="/writing/fuji_python.html" class="btn btn-outline">Elevation Data Write-up</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="games" id="games">
+  <div class="section-label"><h2>All Games</h2></div>
+
+  <div class="game-grid">
+
+    <div class="game-card">
+      <div class="game-thumb thumb-4">&#x1F4F1;</div>
+      <div class="game-body">
+        <div class="game-year">2014</div>
+        <h3>Monk vs Ninjas Android</h3>
+        <p>The original. A 2D Mario-style platformer for Android — jump, kick, and fight through ninja-packed levels.</p>
+        <div class="game-links">
+          <a href="https://play.google.com/store/apps/details?id=com.thousandonestories.game" target="_blank" class="game-link primary">Google Play</a>
+          <a href="http://github.com/edking4967/monk-vs-ninjas" target="_blank" class="game-link">Source</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-thumb thumb-5">&#x2694;&#xFE0F;</div>
+      <div class="game-body">
+        <div class="game-year">2015</div>
+        <h3>Monk vs Ninjas Unity</h3>
+        <p>A Unity port of the original Android game — same core combat rebuilt with improved engine features and physics.</p>
+        <div class="game-links">
+          <a href="http://thousandonestories.com/monk" target="_blank" class="game-link primary">Play</a>
+          <a href="http://github.com/edking4967/monk-vs-ninjas-unity" target="_blank" class="game-link">Source</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-thumb thumb-3">&#x26F0;&#xFE0F;</div>
+      <div class="game-body">
+        <div class="game-year">2016</div>
+        <h3>Monk vs Ninjas 3D</h3>
+        <p>Full 3D remake. Models built in Blender, terrain shaped by Mt. Fuji elevation data. See the featured demo above.</p>
+        <div class="game-links">
+          <a href="http://thousandonestories.com/mvn3d" target="_blank" class="game-link primary">Play</a>
+          <a href="http://github.com/edking4967/mvn-3d" target="_blank" class="game-link">Source</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-thumb thumb-1">&#x1F4BC;</div>
+      <div class="game-body">
+        <div class="game-year">2016</div>
+        <h3>Cube Office</h3>
+        <p>Serenity Forge Game Jam entry. Theme: healing. You manage an office and resolve conflicts between cube-dwelling coworkers.</p>
+        <div class="game-links">
+          <a href="http://gamejolt.com/games/cube-office/174573" target="_blank" class="game-link primary">GameJolt</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="game-card">
+      <div class="game-thumb thumb-2">&#x1F308;</div>
+      <div class="game-body">
+        <div class="game-year">2016</div>
+        <h3>Rainbow Sword</h3>
+        <p>Itch.io "A Game By Its Cover" jam. You're a cloud armed with a rainbow sword — defeat rainclouds and help the plants grow.</p>
+        <div class="game-links">
+          <a href="https://thousandone.itch.io/rainbow-sword" target="_blank" class="game-link primary">itch.io</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="back">
+  <p>More projects, engineering experience, and writing at the main portfolio.</p>
+  <a href="index.html" class="btn btn-outline">&larr; Main Portfolio</a>
+</div>
+
+<footer>
+  <p>Edward King &mdash; <a href="mailto:ed.king4967@gmail.com">ed.king4967@gmail.com</a></p>
+</footer>
+
+<script>
+  function switchVideo(btn, src) {
+    btn.closest('.video-tabs').querySelectorAll('.video-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    const video = document.getElementById('main-video');
+    video.src = src;
+    video.play();
+  }
+</script>
+
+</body>
+</html>
