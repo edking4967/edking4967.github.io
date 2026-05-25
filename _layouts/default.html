@@ -12,6 +12,9 @@
 
 <nav>
     <div class="logo"><a href="/" style="text-decoration:none;color:inherit;">EK.</a></div>
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links">
         <li><a href="https://edkingportfolio.github.io/resume/">Resume</a></li>
         <li><a href="/#experience">Experience</a></li>
@@ -20,9 +23,25 @@
         <li><a href="/#education">Education</a></li>
         <li><a href="/#writing">Technical Writing</a></li>
         <li><a href="/vg">Videogames</a></li>
-
     </ul>
 </nav>
+
+<script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', false);
+        });
+    });
+</script>
 
 {{ content }}
 
