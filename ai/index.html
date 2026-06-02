@@ -69,7 +69,23 @@ title: Edward King | AI Engineering Portfolio
         grid-template-columns: 1fr auto;
         gap: 40px;
         align-items: center;
-        box-shadow: 0 12px 40px rgba(37,99,235,0.25);
+        box-shadow: 0 12px 40px rgba(37,99,235,0.25), 0 0 0 2px rgba(96,165,250,0.5), 0 0 32px rgba(96,165,250,0.15);
+        position: relative;
+    }
+
+    .current-project-badge {
+        position: absolute;
+        top: -13px;
+        left: 28px;
+        background: #facc15;
+        color: #1e1b00;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 3px 12px;
+        border-radius: 20px;
+        box-shadow: 0 2px 8px rgba(250,204,21,0.4);
     }
 
     .quill-card h2 {
@@ -247,6 +263,7 @@ title: Edward King | AI Engineering Portfolio
 <!-- Quill featured card -->
 <section class="featured-section">
     <div class="quill-card">
+        <span class="current-project-badge">Current Project</span>
         <div class="quill-info">
             <span class="quill-sub">Featured Project</span>
             <h2>Quill</h2>
