@@ -1,5 +1,6 @@
 # Todo
 
+
 - [ ] Auto-generate nav bar from `site.pages` in `_layouts/default.html`
   - Replace hardcoded `<ul class="nav-links">` with a Liquid loop
   - Use `nav_order` front matter to control page order
