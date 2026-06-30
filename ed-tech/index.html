@@ -199,6 +199,12 @@
             padding: 10px 12px;
         }
 
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
         .project-name {
             font-size: 0.9em;
             font-weight: 600;
@@ -208,6 +214,13 @@
         .project-name a {
             color: #1c2b4a;
             border-bottom: 1px solid #cbd5e1;
+        }
+
+        .project-dates {
+            font-size: 0.78em;
+            color: #374151;
+            white-space: nowrap;
+            margin-left: 8px;
         }
 
         .project-desc {
@@ -417,18 +430,24 @@
                         <div class="projects-grid">
                             
                             <div class="project-card">
-                                <div class="project-name">
-                                    <a href="https://edking4967.pythonanywhere.com/?demo">Quill</a>
+                                <div class="project-header">
+                                    <div class="project-name">
+                                        <a href="https://edking4967.pythonanywhere.com/?demo">Quill</a>
+                                    </div>
+                                    <span class="project-dates">2026–present</span>
                                 </div>
                                 <p class="project-desc">Sole engineer on a production Python/Flask + React/TypeScript app. Owned the Flask API, data model, SQLite backend, and full React component library end-to-end. Built interactive data dashboards iterated on real user feedback with full deployment ownership.
 </p>
                             </div>
                             
                             <div class="project-card">
-                                <div class="project-name">
-                                    <a href="https://thousandonestories.com">thousandonestories</a>
+                                <div class="project-header">
+                                    <div class="project-name">
+                                        <a href="https://thousandonestories.com">thousandonestories</a>
+                                    </div>
+                                    <span class="project-dates">2013–present</span>
                                 </div>
-                                <p class="project-desc">Interactive fiction platform hosting original short stories. Designed and built a custom web reading experience; over 100 published works spanning literary and speculative fiction.
+                                <p class="project-desc">Interactive fiction platform written in WordPress and PHP hosting original short stories. Designed and built a custom web reading experience; over 100 published works spanning literary and speculative fiction. Created custom plugins and themes  and set up payment functionality for subscription-based service.
 </p>
                             </div>
                             
