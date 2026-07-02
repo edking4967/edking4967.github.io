@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <title>Edward King, M.Ed. — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            background: #d0d4da;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            color: #1a202c;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ── Page ── */
+        .page {
+            width: 92%;
+            max-width: 830px;
+            margin: 32px auto;
+            background: #fff;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+        }
+
+        /* ── Header ── */
+        .header {
+            padding: 20px 40px 16px;
+            border-bottom: 1.5px solid #1c2b4a;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .header-left h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.32em;
+            font-weight: 700;
+            color: #0f1923;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .header-left h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88em;
+            font-weight: 400;
+            color: #1c2b4a;
+            letter-spacing: 0.06em;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .header-right {
+            text-align: left;
+            font-size: 0.82em;
+            color: #2d3748;
+            line-height: 1.9;
+            background: #fefce8;
+            border: 1px solid #fef08a;
+            border-radius: 4px;
+            padding: 8px 14px;
+        }
+
+        .header-right a { color: #1c2b4a; }
+
+        .contact-label {
+            font-size: 0.78em;
+            font-weight: 500;
+            color: #64748b;
+            letter-spacing: 0.03em;
+        }
+
+        /* ── Body ── */
+        .body {
+            padding: 0 40px 28px;
+        }
+
+        /* ── Objective ── */
+        .objective {
+            padding: 18px 0 16px;
+            border-bottom: 1px solid #e8ecf0;
+        }
+
+        .objective p {
+            font-size: 0.88em;
+            color: #1f2937;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* ── Two-column ── */
+        .columns {
+            display: grid;
+            grid-template-columns: 1fr 220px;
+            gap: 0;
+            padding-top: 20px;
+        }
+
+        .col-main {
+            padding-right: 32px;
+            border-right: 1px solid #e8ecf0;
+        }
+
+        .col-side {
+            padding-left: 28px;
+        }
+
+        /* ── Section labels ── */
+        .section-label {
+            font-size: 0.68em;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #1c2b4a;
+            margin-bottom: 12px;
+            padding-bottom: 5px;
+            border-bottom: 1.5px solid #1c2b4a;
+        }
+
+        /* ── Job entry ── */
+        .job {
+            margin-bottom: 16px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1px;
+        }
+
+        .job-title {
+            font-size: 0.93em;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .job-dates {
+            font-size: 0.78em;
+            color: #374151;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+
+        .job-company {
+            font-size: 0.8em;
+            color: #374151;
+            font-weight: 400;
+            margin-bottom: 6px;
+            font-style: italic;
+        }
+
+        .job-bullets {
+            list-style: none;
+            padding: 0;
+        }
+
+        .job-bullets li {
+            font-size: 0.85em;
+            color: #1f2937;
+            line-height: 1.5;
+            margin-bottom: 3px;
+            padding-left: 1.1em;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .job-bullets li::before {
+            content: "–";
+            position: absolute;
+            left: 0;
+            color: #374151;
+        }
+
+        /* ── Projects grid ── */
+        .projects-section {
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid #e8ecf0;
+        }
+
+        .projects-grid {
+            display: flex;
+            gap: 14px;
+        }
+
+        .project-card {
+            flex: 1;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 10px 12px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .project-name {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .project-name a {
+            color: #1c2b4a;
+            border-bottom: 1px solid #cbd5e1;
+        }
+
+        .project-dates {
+            font-size: 0.78em;
+            color: #374151;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+
+        .project-desc {
+            font-size: 0.82em;
+            color: #374151;
+            font-weight: 300;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        /* ── Additional experience (compact) ── */
+        .add-exp-section {
+            margin-top: 18px;
+        }
+
+        .add-exp-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .add-exp-left {
+            font-size: 0.8em;
+            color: #374151;
+            line-height: 1.35;
+        }
+
+        .add-exp-position {
+            font-weight: 500;
+            color: #111827;
+        }
+
+        .add-exp-dates {
+            font-size: 0.75em;
+            color: #6b7280;
+            white-space: nowrap;
+            margin-left: 8px;
+        }
+
+        /* ── Sidebar: Education ── */
+        .edu-entry {
+            margin-bottom: 13px;
+        }
+
+        .edu-institution {
+            font-size: 0.84em;
+            font-weight: 600;
+            color: #111827;
+            line-height: 1.3;
+        }
+
+        .edu-detail {
+            font-size: 0.78em;
+            color: #374151;
+            margin-top: 2px;
+            line-height: 1.45;
+        }
+
+        /* ── Sidebar: Skills ── */
+        .skills-block {
+            margin-top: 18px;
+        }
+
+        .skill-row {
+            margin-bottom: 8px;
+        }
+
+        .skill-label {
+            font-size: 0.72em;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: #1f2937;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .skill-items {
+            font-size: 0.8em;
+            color: #374151;
+            font-weight: 300;
+            line-height: 1.45;
+        }
+
+        /* ── Print ── */
+        @media print {
+            @page { margin: 0.4in 0.45in; }
+            html, body { background: #fff; font-size: 12px; }
+            .page {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                box-shadow: none;
+            }
+            .header-right { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+            .project-card { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+        }
+
+        @media (max-width: 600px) {
+            .columns { grid-template-columns: 1fr; }
+            .col-main { border-right: none; padding-right: 0; border-bottom: 1px solid #e8ecf0; padding-bottom: 20px; }
+            .col-side { padding-left: 0; padding-top: 20px; }
+            .header { flex-direction: column; gap: 12px; }
+            .header-right { text-align: left; }
+            .body { padding: 0 20px 20px; }
+            .header { padding: 20px; }
+            .projects-grid { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <h1>Edward King, M.Ed.</h1>
+                <h2>Full-Stack Engineer • Python/Flask • React</h2>
+            </div>
+            <div class="header-right">
+                <div><span class="contact-label">email</span>&nbsp;&nbsp;<a href="mailto:ed.king4967@gmail.com">ed.king4967@gmail.com</a></div>
+                <div><span class="contact-label">portfolio</span>&nbsp;&nbsp;<a href="https://edking4967.github.io"><a href="https://edking4967.github.io">edking4967.github.io</a></a></div>
+            </div>
+        </div>
+
+        <div class="body">
+
+            <!-- Objective -->
+            
+            <div class="objective">
+                <p>Engineer moving back into the field after 8 years as a STEM educator. 5 years of engineering experience across full-stack software development, firmware engineering, and game development gave me the technical background and projects in React/Flask, C#, and Android Development threaded through my education career kept me current. Teaching AP Computer Science taught me to communicate with both technical and non-technical stakeholders. Enthusiastically seeking junior level full-stack work.
+</p>
+            </div>
+            
+
+            <!-- Two columns -->
+            <div class="columns">
+
+                <!-- Left: Experience + Projects -->
+                <div class="col-main">
+                    <div class="section-label">Experience</div>
+
+                    
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Web Developer</span>
+                            <span class="job-dates">Oct 2016–May 2017</span>
+                        </div>
+                        <div class="job-company">In-Situ Inc. &nbsp;·&nbsp; Fort Collins, CO</div>
+                        <ul class="job-bullets">
+                            
+                            <li>Built a production Angular/TypeScript + Python web application displaying real-time environmental sensor data — the direct equivalent of Whisker Labs' FST dashboards.</li>
+                            
+                            <li>Owned components spanning frontend display, REST API, and backend data pipeline; debugged issues across the full stack.</li>
+                            
+                        </ul>
+                    </div>
+                    
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Computer Science & Engineering Teacher</span>
+                            <span class="job-dates">Sept 2021–Present</span>
+                        </div>
+                        <div class="job-company">The STEAD School &nbsp;·&nbsp; Commerce City, CO</div>
+                        <ul class="job-bullets">
+                            
+                            <li>Taught Python, AP Computer Science A (Java), and engineering design; wrote and debugged production-quality code daily. and written communication.</li>
+                            
+                        </ul>
+                    </div>
+                    
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Firmware Engineer</span>
+                            <span class="job-dates">Aug 2014–Jul 2015</span>
+                        </div>
+                        <div class="job-company">NetApp &nbsp;·&nbsp; Boulder, CO</div>
+                        <ul class="job-bullets">
+                            
+                            <li>Developed and debugged C/C++ in a large production codebase; systematic debugging and testing in a high-reliability, Agile context.</li>
+                            
+                            <li>Worked on a cloud backup system extending NetApp's network mirroring to AWS.</li>
+                            
+                        </ul>
+                    </div>
+                    
+                    <div class="job">
+                        <div class="job-header">
+                            <span class="job-title">Embedded Software Developer</span>
+                            <span class="job-dates">2009–2011</span>
+                        </div>
+                        <div class="job-company">Colorado Space Grant Consortium &nbsp;·&nbsp; Boulder, CO</div>
+                        <ul class="job-bullets">
+                            
+                            <li>Developed C firmware for a spacecraft electrical/power system.</li>
+                            
+                            <li>Implemented one-wire bus communication to read and log temperature sensor data across the power subsystem. in a research engineering context.</li>
+                            
+                        </ul>
+                    </div>
+                    
+
+                    
+                    <div class="projects-section">
+                        <div class="section-label">Projects</div>
+                        <div class="projects-grid">
+                            
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <div class="project-name">
+                                        <a href="https://edking4967.pythonanywhere.com/?demo">Quill</a>
+                                    </div>
+                                    <span class="project-dates">2026–present</span>
+                                </div>
+                                <p class="project-desc">Sole engineer on a production Python/Flask + React/TypeScript app. Owned the Flask API, data model, SQLite backend, and full React component library end-to-end. Built interactive data dashboards iterated on real user feedback with full deployment ownership.
+</p>
+                            </div>
+                            
+                            <div class="project-card">
+                                <div class="project-header">
+                                    <div class="project-name">
+                                        <a href="https://thousandonestories.com">thousandonestories</a>
+                                    </div>
+                                    <span class="project-dates">2013–present</span>
+                                </div>
+                                <p class="project-desc">Interactive fiction platform written in WordPress and PHP hosting original short stories. Designed and built a custom web reading experience; over 100 published works spanning literary and speculative fiction. Created custom plugins and themes  and set up payment functionality for subscription-based service.
+</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+
+                </div>
+
+                <!-- Right: Education + Skills -->
+                <div class="col-side">
+                    <div class="section-label">Education</div>
+
+                    
+                    <div class="edu-entry">
+                        <div class="edu-institution">Colorado State University</div>
+                        <div class="edu-detail">
+                            M.Ed. + Teacher Licensure. 2020–2021<br>Fort Collins, CO
+                            
+                            <br>4.0 GPA; learning design and technology integration.
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="edu-entry">
+                        <div class="edu-institution">University of Colorado Boulder</div>
+                        <div class="edu-detail">
+                            B.S. Electrical & Computer Engineering. 2009–2014<br>Boulder, CO
+                            
+                            <br>Dean's List; coursework in software systems and hardware/software integration.
+                            
+                        </div>
+                    </div>
+                    
+
+                    
+                    <div class="skills-block">
+                        <div class="section-label">Technical Skills</div>
+                        
+                        <div class="skill-row">
+                            <span class="skill-label">Backend</span>
+                            <span class="skill-items">Python, Flask, REST APIs, SQLite</span>
+                        </div>
+                        
+                        <div class="skill-row">
+                            <span class="skill-label">Frontend</span>
+                            <span class="skill-items">React, TypeScript, JavaScript, HTML/CSS, data visualization, component-based UIs</span>
+                        </div>
+                        
+                        <div class="skill-row">
+                            <span class="skill-label">Tools & Workflow</span>
+                            <span class="skill-items">Git, GitHub, Agile, Claude API, Unix/shell scripting, AWS</span>
+                        </div>
+                        
+                    </div>
+                    
+
+                    
+                    <div class="add-exp-section">
+                        <div class="section-label">Additional Experience</div>
+                        
+                        <div class="add-exp-entry">
+                            <div class="add-exp-left">
+                                <span class="add-exp-position">English for Academic Purposes Teacher</span><br>
+                                Suzhou Foreign Language School
+                            </div>
+                            <span class="add-exp-dates">2015-2016</span>
+                        </div>
+                        
+                        <div class="add-exp-entry">
+                            <div class="add-exp-left">
+                                <span class="add-exp-position">Auxiliary Teacher</span><br>
+                                IES San Agustín del Guadalix, Madrid
+                            </div>
+                            <span class="add-exp-dates">2017</span>
+                        </div>
+                        
+                        <div class="add-exp-entry">
+                            <div class="add-exp-left">
+                                <span class="add-exp-position">Substitute Teacher</span><br>
+                                Poudre School District
+                            </div>
+                            <span class="add-exp-dates">2018-2020</span>
+                        </div>
+                        
+                        <div class="add-exp-entry">
+                            <div class="add-exp-left">
+                                <span class="add-exp-position">Student Teacher</span><br>
+                                Polaris Expeditionary School
+                            </div>
+                            <span class="add-exp-dates">2020–2021</span>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div><!-- /body -->
+    </div><!-- /page -->
+</body>
+</html>
