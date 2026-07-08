@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <title>Edward King — ELA Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            background: #f7f2e7;
+            color: #2b2620;
+            font-family: 'Lora', Georgia, serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; }
+
+        .page {
+            max-width: 660px;
+            margin: 0 auto;
+            padding: 72px 32px 100px;
+        }
+
+        /* ── Masthead ── */
+        .masthead {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .masthead .name {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 600;
+            font-size: 3.1em;
+            letter-spacing: 0.02em;
+            color: #201c17;
+        }
+
+        .masthead .subtitle {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.25em;
+            color: #6b5f4d;
+            margin-top: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .masthead .rule {
+            width: 90px;
+            height: 1px;
+            background: #b89b6c;
+            margin: 20px auto 18px;
+        }
+
+        .masthead .contact {
+            font-size: 0.82em;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8a7a60;
+        }
+
+        .masthead .contact a {
+            text-decoration: none;
+            border-bottom: 1px solid #cbb888;
+        }
+
+        /* ── Intro ── */
+        .intro {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.32em;
+            line-height: 1.65;
+            font-style: italic;
+            color: #3a332a;
+            text-align: center;
+            margin: 0 auto 64px;
+            max-width: 540px;
+        }
+
+        /* ── Sections ── */
+        .section { margin-bottom: 54px; }
+
+        .section-label {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 0.95em;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: #a6895f;
+            text-align: center;
+            margin-bottom: 34px;
+            position: relative;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: "";
+            display: inline-block;
+            width: 34px;
+            height: 1px;
+            background: #cbb888;
+            vertical-align: middle;
+            margin: 0 12px;
+        }
+
+        /* ── Entries ── */
+        .entry { margin-bottom: 38px; }
+        .entry:last-child { margin-bottom: 0; }
+
+        .entry-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-weight: 600;
+            font-size: 1.32em;
+            color: #201c17;
+        }
+
+        .entry-meta {
+            font-style: italic;
+            font-size: 0.88em;
+            color: #7a6d57;
+            margin-top: 2px;
+            margin-bottom: 10px;
+        }
+
+        .entry-body {
+            font-size: 0.96em;
+            line-height: 1.7;
+            color: #362f26;
+            font-weight: 400;
+        }
+
+        .entry-body em {
+            font-style: italic;
+        }
+
+        /* ── Publications ── */
+        .pub {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .pub:last-child { margin-bottom: 0; }
+
+        .pub-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 1.55em;
+            color: #201c17;
+        }
+
+        .pub-title a {
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .pub-title a:hover {
+            border-bottom-color: #a6895f;
+            color: #7a5c2e;
+        }
+
+        .pub-desc {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: #5c5343;
+            margin-top: 6px;
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pub-url {
+            display: block;
+            font-size: 0.76em;
+            letter-spacing: 0.06em;
+            color: #a6895f;
+            margin-top: 6px;
+        }
+
+        /* ── Colophon / credits list ── */
+        .credits {
+            text-align: center;
+            font-size: 0.88em;
+            line-height: 2;
+            color: #5c5343;
+            font-style: italic;
+        }
+
+        .credits .credit-cat {
+            display: block;
+            font-style: normal;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-size: 0.78em;
+            color: #a6895f;
+            margin-top: 18px;
+            margin-bottom: 3px;
+        }
+        .credits .credit-cat:first-child { margin-top: 0; }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 24px;
+            border-top: 1px solid #e3d7bd;
+            font-size: 0.78em;
+            letter-spacing: 0.06em;
+            color: #a6895f;
+            font-style: italic;
+        }
+
+        @media print {
+            @page { margin: 0.6in; }
+            html, body { background: #fff; }
+        }
+
+        @media (max-width: 600px) {
+            .page { padding: 48px 22px 70px; }
+            .masthead .name { font-size: 2.3em; }
+            .section-label::before, .section-label::after { width: 20px; margin: 0 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+
+        <div class="masthead">
+            <div class="name">Edward King</div>
+            <div class="subtitle">English &amp; Creative Writing</div>
+            <div class="rule"></div>
+            <div class="contact">ed.king4967@gmail.com</div>
+        </div>
+
+        <p class="intro">
+            Secondary English and Creative Writing teacher with five years in the classroom
+            and a published fiction background — I bring the practice of writing itself,
+            drafting, revising, publishing, into how I teach students to read and write.
+        </p>
+
+        <div class="section">
+            <div class="section-label">Teaching Experience</div>
+
+            <div class="entry">
+                <div class="entry-title">Founding Teacher — English &amp; Creative Writing</div>
+                <div class="entry-meta">The STEAD School, Commerce City, CO &nbsp;·&nbsp; Sept 2021–Present</div>
+                <div class="entry-body">
+                    Designed and taught a Creative Writing course over three years, guiding students
+                    through short stories, poetry, and film scripts while fostering their unique voices.
+                    Designed and taught all curriculum for a high school English class, including a
+                    project-based unit on <em>Life of Pi</em> and the ethics of eating animals. Also
+                    taught AP Computer Science A, Math, and Engineering, and led an advisory class
+                    focused on social-emotional learning.
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">English Teacher</div>
+                <div class="entry-meta">Suzhou Foreign Language School, Suzhou, China &nbsp;·&nbsp; Aug 2015–Jul 2016</div>
+                <div class="entry-body">
+                    Taught English for Academic Purposes and College Writing at an international high
+                    school, leading curriculum development and preparing students for Western universities.
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-title">Volunteer English Teacher</div>
+                <div class="entry-meta">Immigrant &amp; Refugee Center of Northern Colorado, Greeley, CO &nbsp;·&nbsp; Aug–Dec 2018</div>
+                <div class="entry-body">
+                    Taught English reading, writing, and speaking skills to primarily Somali refugees
+                    and immigrants in a classroom setting.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-label">Published &amp; Editorial Work</div>
+
+            <div class="pub">
+                <div class="pub-title"><a href="https://thousandonestories.com" target="_blank" rel="noopener">A Thousand and One Stories</a></div>
+                <div class="pub-desc">
+                    Founded and edited an international storytelling platform, publishing over 100
+                    stories from writers worldwide and showcasing diverse voices. Designed and built
+                    the site using WordPress, HTML, CSS, and PHP.
+                </div>
+                <span class="pub-url">thousandonestories.com</span>
+            </div>
+
+            <div class="pub">
+                <div class="pub-title"><a href="https://coffeebreakreads.com" target="_blank" rel="noopener">Coffee Break Reads</a></div>
+                <div class="pub-desc">
+                    Ongoing fiction and writing project.
+                </div>
+                <span class="pub-url">coffeebreakreads.com</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-label">Additional Publications</div>
+            <div class="credits">
+                <span class="credit-cat">Print</span>
+                Colorado's Emerging Writers Series &nbsp;·&nbsp; CU Honors Journal &nbsp;·&nbsp; CU Walkabout Journal
+                <span class="credit-cat">Online</span>
+                Short Beasts &nbsp;·&nbsp; Cultured Vultures &nbsp;·&nbsp; Flatirons Literary Review &nbsp;·&nbsp; Synchronized Chaos
+            </div>
+        </div>
+
+        <div class="footer">Edward King, M.Ed.</div>
+
+    </div>
+</body>
+</html>
