@@ -5,33 +5,67 @@ title: FFT Guitar Synthesizer | Edward King
 
 <section id="fft" class="writeup-section">
     <h2 class="section-title">FFT Guitar Synthesizer</h2>
-    <p class="writeup-intro">
-        A hardware/software project combining an LPCXpresso microcontroller, Fast Fourier Transforms, Bluetooth, and an Android synthesizer to detect guitar notes in real time and reproduce them digitally.
-    </p>
 
-    <!-- FFT Device -->
     <div class="writeup-block">
-        <h3>FFT on the LPCXpresso</h3>
+        <h3>Introduction</h3>
+    </div>
+
+    <div class="writeup-block">
+        <h3>Background</h3>
         <p>
-            The FFT was implemented directly on the LPCXpresso so that only minimal data needed to travel over Bluetooth, reducing latency.
-            After evaluating several libraries, we settled on <strong>integer_fft.c</strong> — a lightweight C library that accepts time-domain integer samples
-            and returns real and imaginary frequency-domain components.
+            This project uses Fast Fourier Transforms to detect the note that is being played on the guitar.
+            [information on fast fourier transforms]
+        </p>
+    </div>
+
+    <div class="writeup-block">
+        <h3>Design and testing methodology</h3>
+    </div>
+
+    <div class="writeup-block">
+        <h3>FAST FOURIER TRANSFORM DEVICE</h3>
+        <p>
+            We decided to implement the Fast Fourier Transform itself on the LPCXpresso device so that a minimal amount of data would have to be transmitted over bluetooth, reducing latency.
         </p>
         <p>
-            We verified our sampling rate empirically by capturing waveform-generator output in MATLAB and counting samples per wavelength,
-            confirming an actual ADC rate of <strong>15.463 kHz</strong>. The peak frequency is then found within the expected guitar range (75 – 500 Hz)
-            and its array index (0 – 511) is sent over Bluetooth UART in a single byte.
+            We started out with an FFT library written for LPC devices. However, the library did not allow us to perform data on enough samples: when we increased the samples to a reasonable amount, the LPC board would crash. We switched over to a different FFT library found online: integer_fft.c. integer_fft.c is a simple C library that takes input data in the time domain in the format of ints, and converts it to data in the frequency domain in real and imaginary form.
+        </p>
+        <p>
+            A key testing step at this point in the process was making sure that the data output by the FFT function was correct. Without this, our device would output the wrong frequencies and our synthesizer would play the wrong notes.
+        </p>
+        <p>
+            In order to make sure that the frequencies were correct, first we measured the sample rate experimentally. By printing the data we read in from the LPC and plotting it in MATLAB, we were able to take a waveform from the waveform generator with a known frequency and measure the number of samples it took to count one wavelength. By dividing the period of the wave by the number of samples, we were able to determine that the actual sampling rate of the ADC was 15.463 kHz.
+        </p>
+        <p>
+            In order to produce the FFT, we had to take the magnitude of the real and imaginary data. Next, we had to find the peak frequency in order to know what data to send to the Android app. This was fairly simple. Within a max and min frequency (typical guitar notes do not go below 75 Hz or above 500 Hz), we cycle through our FFT data and find the max. We send the max frequency over Bluetooth using the Bluetooth UART peripheral. In order to keep the size of the data within one byte, we did not send the actual frequency value, but rather the position of the peak within the FFT array, which could range from 0 to 511.
+        </p>
+        <p>
+            Another key testing step here was to plot our FFT data using a waveform generator output against MATLAB's Fast Fourier Transform function. We found that the results were very similar, with the same frequency peaks.
+        </p>
+        <p>
+            Next, we had to take actual data from the guitar. We ran into an obstacle here: the LPCXpresso's ADC does not read negative values, and audio signals are a sin wave centered at zero, so they have a negative component. Therefore, we had to boost the signal in order to read it with the ADC.
+        </p>
+        <p>
+            We originally wanted to use an amplifier circuit with an op amp and resistors. However, when we set up the hardware, we found that the op amp produced a constant value rather than the value that we expected. After experimentation, we found that an ideal way to boost the signal was to use an already-existing audio mixer to amplify the signal, and then simply average in a DC offset using a passive averager circuit. This boosted the signal and also allowed us to use the mixer's low pass filter settings. Cutting off high frequencies let us reduce the risk that our frequency detectors would output false positives for frequencies higher than the fundamental.
         </p>
     </div>
 
     <hr class="writeup-divider">
 
-    <!-- Synthesizer -->
     <div class="writeup-block">
-        <h3>Android Synthesizer — playNote</h3>
+        <h3>SYNTHESIZER</h3>
+        <h3>Terminology</h3>
         <p>
-            Rather than running sound generation in an infinite loop, each button press triggers <code class="inline-code">playNote()</code>,
-            which fills a buffer of <em>frame_size × note_length</em> samples with a sine wave, then writes it to Android's AudioTrack frame by frame.
+            In order to play audio on Android, you need to create a buffer of a certain size and write it to an AudioTrack object. Since there is a larger buffer in our program that stores multiple notes&mdash;many times the size of the final audio buffer&mdash;in order to avoid confusion in our naming, we called this small buffer a &ldquo;frame.&rdquo;
+        </p>
+        <p>
+            We initially started from Victor Lazzarini's online tutorial, &ldquo;A simple synth in Android: a step-by-step guide using the Java SDK.&rdquo; This tutorial demonstrated a very basic synth. The synth starts off at 440 Hz, and generates a set of data large enough to fill one frame for a sin wave at this frequency. This frame is then immediately written to the Android AudioTrack, and this code all loops so that the note plays continuously. Later on in the tutorial, a control is implemented to enter a different frequency, thus changing the pitch of the note.
+        </p>
+        <p>
+            This tutorial did implement a simple synth, but it did not have all of the functionality that we wanted from our synthesizer. The synth simply plays a sustained tone at the same amplitude, and allows you to change the pitch. While this technically allows you to play a musical note, it does not sound musical. We wanted to design a synthesizer that could play notes with a volume envelope, giving the notes a musical character, and that could play multiple notes at once.
+        </p>
+        <p>
+            In order to do this, we first wrote a system where a note of a specific frequency could be played. Instead of the sound generation code running continuously inside a while loop, we created buttons with onTouchListeners that called a playNote function. The playNote function looked like this:
         </p>
 
         <div class="code-card">
@@ -39,115 +73,163 @@ title: FFT Guitar Synthesizer | Edward King
                 <div class="code-dot dot-red"></div>
                 <div class="code-dot dot-yellow"></div>
                 <div class="code-dot dot-green"></div>
-                <span>Synthesizer.java</span>
+                <span>playNote</span>
             </div>
             <pre><code><span class="kw">public</span> <span class="ty">void</span> <span class="fn">playNote</span>(<span class="ty">float</span> freq, <span class="ty">int</span> amp, <span class="ty">int</span> note_length) {
-    <span class="ty">int</span> i, j;
-    <span class="ty">short</span> samples_arr[] = <span class="kw">new</span> <span class="ty">short</span>[frame_size * note_length];
+	 <span class="ty">int</span> i,j;
+	 <span class="ty">short</span> samples_arr[] = <span class="kw">new</span> <span class="ty">short</span>[frame_size*note_length];
+	 <span class="kw">for</span>( i=<span class="nu">0</span>; i &lt; frame_size*note_length; i++){
+		samples_arr[i] = (<span class="ty">short</span>) (amp * ( (<span class="ty">float</span>) Math.<span class="fn">sin</span>(ph) );
+	}
 
-    <span class="kw">for</span> (i = <span class="nu">0</span>; i &lt; frame_size * note_length; i++) {
-        samples_arr[i] = (<span class="ty">short</span>) (amp * ((<span class="ty">float</span>) Math.<span class="fn">sin</span>(ph)));
-        ph += twopi * freq / sr;
-    }
-
-    <span class="kw">for</span> (i = <span class="nu">0</span>; i &lt; note_length; i++) {
-        <span class="cm">// second arg is the offset into the array</span>
-        audioTrack.<span class="fn">write</span>(samples_arr, i * frame_size, frame_size);
-    }
+	ph += twopi*freq/sr;
+	 ///////
+	 <span class="kw">for</span>(i=<span class="nu">0</span>;i&lt;note_length;i++)
+	 {
+		 audioTrack.<span class="fn">write</span>( samples_arr, i*frame_size, frame_size);
+	<span class="cm">//The second argument to this function is the offset to start from in the array.</span>
+	 }
+	 ///////
 }</code></pre>
         </div>
+
+        <p>
+            The upper for loop writes the entire note to a buffer of size frame_size * note_length. The note, in samples, is a multiple of the number of samples that are in one frame. The lower for loop writes the note frame by frame to the audioTrack object, playing the data stored in each frame through the Android device's audio system. In this code snippet, we created a larger buffer that holds a note, which we then played frame by frame. We would use this structure in all of our later code.
+        </p>
+
+        <p>
+            The next step was adding a volume envelope. Most real synthesizers, and all acoustic instruments, have a volume envelope to the notes that they play. The note starts from zero amplitude and reaches a peak amplitude over time. This is called the &ldquo;attack&rdquo; phase. Once they reach the peak amplitude, they stay at this level for some amount of time and decay back to zero.
+        </p>
+
+        <p>
+            To simplify our design, we only included an attack and decay phase. Once the note hits peak amplitude, it immediately starts to decay back to zero. To implement this, we included the following code:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>envelope</span>
+            </div>
+            <pre><code>	<span class="kw">if</span>(i &lt; attack)
+	{
+		envelope = (<span class="ty">float</span>) i / (<span class="ty">float</span>) attack;
+	}
+	<span class="kw">else</span>
+	{
+		envelope = (<span class="nu">1</span> - ( (<span class="ty">float</span>) i ) / ( (<span class="ty">float</span>) buffer_size*note_length) ));
+	}</code></pre>
+        </div>
+
+        <p>
+            We then multiplied the waveform generated in the first for loop above by the &ldquo;envelope&rdquo; variable. This has the effect of making the amplitude grow to 1 when i is less than attack, and making it decay until the end of the note length.
+        </p>
+
+        <p>
+            The final technical challenge to writing the synthesizer was to enable it to play multiple notes at once. This meant sending the notes to an intervening buffer where they would be added, before being sent to the audio system to play.
+        </p>
+
+        <p>
+            Since the main buffer would be somewhat complex, we decided to make it its own class, MainBuffer. We then added the following in the main loop of the application:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>main loop</span>
+            </div>
+            <pre><code>	<span class="kw">if</span>( mainBuff.<span class="fn">playReady</span>() )  <span class="cm">// if there is a frame to play</span>
+   	{
+   		mainBuff.<span class="fn">playNextFrame</span>(); <span class="cm">// play the frame</span>
+   	}</code></pre>
+        </div>
+
+        <p>
+            The logic of this is simple: each time we enter the main loop, check if there is a valid frame to play. If so, then play it.
+        </p>
+
+        <p>
+            We considered a linked list to implement the large buffer, where the notes would be written to and played from. However, in order make things as simple as possible, we settled on a circular buffer. We created a Frame class which simply contained an array of shorts, the length of one frame. The MainBuffer class contains an array of Frames size note_length * 10. That is, it can contain audio data up to the size of ten notes. After this, it starts to overwrite data in its circular buffer.
+        </p>
+
+        <p>
+            The next design consideration was how to keep track of where we were in the buffer. We implemented a &ldquo;playhead&rdquo; variable to point to the currently playing frame and indicate where to write new frames. Therefore, the playNextFrame() function simply reads:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>playNextFrame</span>
+            </div>
+            <pre><code>		<span class="kw">public</span> <span class="ty">void</span> <span class="fn">playNextFrame</span>()
+		 {
+			 <span class="fn">playFrame</span>( playhead );
+			 playhead++;
+			 <span class="kw">if</span>(playhead == notelength*<span class="nu">10</span>) <span class="cm">// reached end of main buffer</span>
+			 {
+				 playhead = <span class="nu">0</span>;   <span class="cm">// go back to the beginning</span>
+			 }
+		 }</code></pre>
+        </div>
+
+        <p>
+            We also implemented an array of booleans inside the MainBuffer class to denote whether a given frame has valid, unplayed audio data:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>MainBuffer</span>
+            </div>
+            <pre><code>			 frames_valid = <span class="kw">new</span> <span class="ty">boolean</span>[note_length*<span class="nu">10</span>];</code></pre>
+        </div>
+
+        <p>
+            The playReady() function showed above checks this value for the frame at playhead. After playing a frame, the frame is marked as invalid so it will not be played again until a new frame is written at that location.
+        </p>
+
+        <p>
+            Now that we know where to write the sample and how to mark it valid, we just need to write it to the frame in the main buffer. Each time the writeSample function writes a sample, it adds it to what is already there in the main buffer:
+        </p>
+
+        <div class="code-card">
+            <div class="code-card-header">
+                <div class="code-dot dot-red"></div>
+                <div class="code-dot dot-yellow"></div>
+                <div class="code-dot dot-green"></div>
+                <span>writeSample</span>
+            </div>
+            <pre><code>data[offset] += datapt;  </code></pre>
+        </div>
+
+        <p>
+            Therefore, if a note has been written to the buffer but has not finished playing through the audio system, the new note will get added to it. In terms of music, this produces the sensation of two notes being played at the same time. The playFrame() function will take care of actually writing the data to the audio system and playing it.
+        </p>
     </div>
 
     <div class="writeup-block">
-        <h3>Volume Envelope (Attack &amp; Decay)</h3>
+        <h3>Testing</h3>
         <p>
-            A simple two-phase envelope shapes the amplitude of each note: it ramps from zero to peak during the <em>attack</em> phase,
-            then decays back to zero over the remainder of the note. The resulting scalar is multiplied into each sample before it is written to the buffer.
+            We tested the synthesizer thoroughly while integrating it with the guitar. In theory, since the buffer overwrites itself when it gets full, there shouldn't be any memory issues, and we did not experience any crashes with our app while testing. Furthermore, we tested the synthesizer by itself through a range of octaves, and the sound was correct across the range. Therefore, we met our goal of producing a functional synthesizer.
         </p>
-
-        <div class="code-card">
-            <div class="code-card-header">
-                <div class="code-dot dot-red"></div>
-                <div class="code-dot dot-yellow"></div>
-                <div class="code-dot dot-green"></div>
-                <span>Envelope.java</span>
-            </div>
-            <pre><code><span class="kw">if</span> (i &lt; attack) {
-    envelope = (<span class="ty">float</span>) i / (<span class="ty">float</span>) attack;
-} <span class="kw">else</span> {
-    envelope = (<span class="nu">1</span> - ((<span class="ty">float</span>) i) / ((<span class="ty">float</span>) buffer_size * note_length));
-}
-
-<span class="cm">// multiply envelope into the waveform sample</span>
-samples_arr[i] = (<span class="ty">short</span>) (amp * envelope * ((<span class="ty">float</span>) Math.<span class="fn">sin</span>(ph)));</code></pre>
-        </div>
-    </div>
-
-    <div class="writeup-block">
-        <h3>MainBuffer — Polyphonic Playback</h3>
         <p>
-            To play multiple notes simultaneously, incoming note data is accumulated into a circular <strong>MainBuffer</strong> (capacity: 10 notes)
-            before being sent to the audio system. Each frame position carries a validity flag so that already-played frames are not replayed.
+            Another important test that we did was to set the Android app to print out the frequencies it was receiving. That way, we could make sure that the frequencies the LPC was sending were within a reasonable range, even when the LPC's debug printing functions were disabled. Though we noticed some strange values at first, we improved our algorithm from detecting the first peak to detecting the highest peak, and we also used a low pass filter on our signal before computing the FFT. After both of these modifications, the frequency values received by the Android app were correct after extensive testing.
         </p>
-        <p>The main loop simply checks whether a valid frame is ready and, if so, plays it:</p>
-
-        <div class="code-card">
-            <div class="code-card-header">
-                <div class="code-dot dot-red"></div>
-                <div class="code-dot dot-yellow"></div>
-                <div class="code-dot dot-green"></div>
-                <span>MainActivity.java — main loop</span>
-            </div>
-            <pre><code><span class="kw">if</span> (mainBuff.<span class="fn">playReady</span>()) {   <span class="cm">// a valid frame is waiting</span>
-    mainBuff.<span class="fn">playNextFrame</span>();
-}</code></pre>
-        </div>
-
-        <p style="margin-top:1.25rem;">
-            <code class="inline-code">playNextFrame()</code>
-            advances a <em>playhead</em> through the circular buffer, wrapping back to zero once the end is reached:
-        </p>
-
-        <div class="code-card">
-            <div class="code-card-header">
-                <div class="code-dot dot-red"></div>
-                <div class="code-dot dot-yellow"></div>
-                <div class="code-dot dot-green"></div>
-                <span>MainBuffer.java</span>
-            </div>
-            <pre><code><span class="kw">public</span> <span class="ty">void</span> <span class="fn">playNextFrame</span>() {
-    <span class="fn">playFrame</span>(playhead);
-    playhead++;
-    <span class="kw">if</span> (playhead == note_length * <span class="nu">10</span>) {  <span class="cm">// reached end of circular buffer</span>
-        playhead = <span class="nu">0</span>;
-    }
-}</code></pre>
-        </div>
-
-        <p style="margin-top:1.25rem;">
-            Writing a new note <em>adds</em> its samples to whatever is already in the buffer, producing the sensation of two notes sounding simultaneously:
-        </p>
-
-        <div class="code-card">
-            <div class="code-card-header">
-                <div class="code-dot dot-red"></div>
-                <div class="code-dot dot-yellow"></div>
-                <div class="code-dot dot-green"></div>
-                <span>MainBuffer.java — writeSample</span>
-            </div>
-            <pre><code><span class="cm">// additive mix: new note blends with any already-playing audio</span>
-data[offset] += datapt;</code></pre>
-        </div>
     </div>
 
     <hr class="writeup-divider">
 
-    <!-- Bluetooth -->
     <div class="writeup-block">
-        <h3>Bluetooth Transmission</h3>
+        <h3>BLUETOOTH TRANSMISSION</h3>
         <p>
-            The Android side is based on the BluetoothChat sample project, with the UUID updated to accept serial input from the LPCXpresso.
-            The single received byte — the FFT peak index — is converted back to a frequency and queued into the synthesizer:
+            The Bluetooth transmission portion of the project was fairly simple. We used the Android BluetoothChat example project as a basis. We had to change the UUID in the code so that the code would expect input from a serial device like ours, and not only another BluetoothChat client. Once this was done, the Android app received data bytes sent by the LPCXpresso board. Then the only thing left to do was to convert the data received to a frequency and play the note.
         </p>
 
         <div class="code-card">
@@ -155,13 +237,14 @@ data[offset] += datapt;</code></pre>
                 <div class="code-dot dot-red"></div>
                 <div class="code-dot dot-yellow"></div>
                 <div class="code-dot dot-green"></div>
-                <span>BluetoothReceiver.java</span>
+                <span>Bluetooth receive</span>
             </div>
-            <pre><code><span class="cm">// Reconstruct the frequency from the FFT peak index</span>
-fr = (<span class="ty">float</span>) passval0 / (<span class="ty">float</span>) NUM_SAMPLES * (<span class="ty">float</span>) ADC_SAMPLE_RATE;
+            <pre><code>	<span class="cm">//Convert frequency:</span>
+	fr = (<span class="ty">float</span>) passval0 / (<span class="ty">float</span>) NUM_SAMPLES * (<span class="ty">float</span>) ADC_SAMPLE_RATE ;
 
-<span class="cm">// Queue the note into the polyphonic synthesizer</span>
-mainBuff.<span class="fn">addNote</span>(fr, amp, att, nl, <span class="kw">false</span>, wf);</code></pre>
+
+      <span class="cm">//Play the note received from the LPC:</span>
+      mainBuff.<span class="fn">addNote</span>(fr, amp, att, nl, <span class="kw">false</span>, wf);</code></pre>
         </div>
     </div>
 </section>
