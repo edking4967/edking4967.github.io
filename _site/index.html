@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Edward King | Software Engineer & Educator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="/assets/style.css" rel="stylesheet">
     <!-- Google tag (gtag.js) -->
@@ -25,6 +25,7 @@
     </button>
     <ul class="nav-links">
         <li><a href="/resume-fancy.html">Resume</a></li>
+        <li><a href="/#about">About</a></li>
         <li><a href="/#experience">Experience</a></li>
         <li><a href="/#projects">Projects</a></li>
         <li><a href="/#teaching">Teaching</a></li>
@@ -52,23 +53,84 @@
     });
 </script>
 
-<header>
-    <h1>Edward King, M.Ed.</h1>
-    <p class="subtitle">Software Engineer &amp; Educator</p>
-    <p style="max-width:700px;margin:0 auto 2rem;">
-        Software engineer with 5+ years' experience in C++, Python, and web development. Passionate about building complex systems and designing STEM curricula.
+<header class="hero">
+    <img src="/assets/images/edward-king.jpg" alt="Edward King" class="hero-photo">
+    <h1>Hi, I'm Edward King</h1>
+    <p class="subtitle">Software Engineer &amp; Educator, M.Ed.</p>
+    <p class="hero-blurb">
+        I bring a balance of creativity, technical skill, organization, and
+        clear, effective communication to every project I take on &mdash;
+        whether that's shipping code or running a classroom.
     </p>
     <div class="contact-bar">
         Contact: <a href="mailto:ed.king4967@gmail.com">ed.king4967@gmail.com</a>
-
     </div>
 </header>
 
+<section id="about" style="background-color:#fbece1;">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-text">
+        <p class="lede">
+            Hi there! I'm a teacher and software engineer with 12 years of
+            combined experience, and I've never quite been able to choose
+            just one craft &mdash; so I didn't.
+        </p>
 
-<section id="projects" style="background-color:#f8fafc;">
+        <h3>Building things</h3>
+        <p>
+            I spent five years as an engineer working mostly in C++,
+            JavaScript, Python, and Flask &mdash; time split between a NetApp
+            internship and later a full-time firmware role, CU Space Grant
+            (where I helped build the power system for the DANDE research
+            satellite), a water-infrastructure project with NapoNet, and
+            In&#8209;Situ. On the side, I built a 3D game demo, Monk vs
+            Ninjas, just to see if I could.
+        </p>
+
+        <h3>Teaching</h3>
+        <p>
+            I taught for five years across engineering, math, ESL, English,
+            creative writing, film, and computer science &mdash; after two
+            years of substitute teaching to make sure it was really what I
+            wanted. It was: I went on to earn a master's degree in Education
+            and student taught in a wonderfully diverse high school. These
+            days I teach AP Computer Science and Engineering full time.
+        </p>
+
+        <h3>Writing &amp; performing</h3>
+        <p>
+            I created and led <em>A Thousand and One Stories</em>, a literary
+            journal I built from scratch &mdash; designing the site, writing
+            plugins in HTML, CSS, and JavaScript, managing submissions,
+            editing, hiring a small team of editors, and forming an LLC to
+            handle payments. We published over 100 stories from authors
+            around the world. Writing runs through the rest of my life too: I
+            hold an English bachelor's degree alongside my engineering one,
+            completed an honors thesis in Creative Writing, had nine stories
+            published and four plays performed, and played music in three
+            rock bands and a high school jazz band &mdash; occasionally
+            taking original songs to open mic nights.
+        </p>
+
+        <h3>Travel, language &amp; adventure</h3>
+        <p>
+            I taught ESL in Suzhou, China for a year and in Madrid, Spain for
+            a semester, and worked as a Spanish&ndash;English translator on a
+            trip to Napo, Peru, assessing whether an existing telecom network
+            could be repurposed for education. I studied Chinese for two
+            semesters, including one at Xi'an Jiaotong University, and I now
+            speak both Spanish and Chinese. When I'm not working, I'm usually
+            looking for the next climb or cliff walk &mdash; so far that's
+            included Long's Peak and the famously vertigo-inducing plank walk
+            of Hua Shan.
+        </p>
+    </div>
+</section>
+
+<section id="projects" style="background-color:#f6d9c8;">
     <h2 class="section-title">Key Projects</h2>
     <div class="grid">
-        <div class="card" style="position:relative;border:2px solid rgba(37,99,235,0.45);box-shadow:0 0 0 4px rgba(96,165,250,0.12),0 4px 20px rgba(37,99,235,0.15);">
+        <div class="card" style="position:relative;border:2px solid rgba(201,85,47,0.45);box-shadow:0 0 0 4px rgba(232,115,74,0.14),0 4px 20px rgba(201,85,47,0.15);">
             <span style="position:absolute;top:-12px;left:16px;background:#facc15;color:#1e1b00;font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 10px;border-radius:20px;box-shadow:0 2px 6px rgba(250,204,21,0.35);">Current Project</span>
             <h3><a href="https://edking4967.pythonanywhere.com">Quill</a></h3>
             <p>Writing tracking software to help writers manage complex projects. <a href="https://edking4967.pythonanywhere.com">Check it out!</a></p>
@@ -112,9 +174,20 @@
     <h2 class="section-title">Experience</h2>
     <div class="grid">
         <div class="card">
+            <span class="date">2024 — Present</span>
+            <h3>Full-Stack Developer @ Quill</h3>
+            <p>Sole engineer on a personal writing-tracker product &mdash; React/Vite/TypeScript frontend, Python/Flask REST API, SQLite persistence, deployed to PythonAnywhere. Now building agentic AI features with Anthropic's Claude API.</p>
+            <div class="tags">
+                <span class="tag">React</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Flask</span>
+                <span class="tag">Anthropic API</span>
+            </div>
+        </div>
+        <div class="card">
             <span class="date">2016 — 2017</span>
             <h3>Web Developer @ In-Situ</h3>
-            <p>Aggregated water quality data for web applications using cloud infrastructure.</p>
+            <p>Built and shipped a production full-stack app &mdash; Angular frontend, Flask backend &mdash; aggregating real-time water-quality sensor data for environmental field teams. Designed REST APIs, wrote time-series SQL, and deployed on Google App Engine.</p>
             <div class="tags">
                 <span class="tag">Flask</span>
                 <span class="tag">Python</span>
@@ -125,24 +198,58 @@
         <div class="card">
             <span class="date">2014 — 2015</span>
             <h3>Firmware Engineer @ NetApp</h3>
-            <p>Developed cloud backup solutions for large-scale storage systems.</p>
+            <p>Developed and maintained production C++ for a cloud backup solution running on large-scale enterprise storage, across a large multi-year codebase, in a Linux/Git/Vim/tmux Agile shop.</p>
             <div class="tags">
                 <span class="tag">C++</span>
+                <span class="tag">Linux</span>
                 <span class="tag">Vim</span>
                 <span class="tag">Tmux</span>
             </div>
         </div>
         <div class="card">
             <span class="date">2009 — 2011</span>
-            <h3>Electrical Power Systems @ CU Space Grant</h3>
-            <p>Engineered power systems for research satellites in lower Earth orbit.</p>
+            <h3>Electrical Power Systems Engineer @ CU Space Grant</h3>
+            <p>Developed and tested embedded C/C++ firmware for the power subsystem of the DANDE CubeSat research satellite, including a one-wire-bus data acquisition system, validated hardware-in-the-loop.</p>
             <div class="tags">
                 <span class="tag">C</span>
                 <span class="tag">C++</span>
-                <span class="tag">One Wire Bus</span>
-                <span class="tag">Soldering</span>
+                <span class="tag">Embedded</span>
+                <span class="tag">One-Wire Bus</span>
             </div>
         </div>
+        <div class="card">
+            <span class="date">2009 — 2010</span>
+            <h3>IT Lab Technician/Manager @ NetApp</h3>
+            <p>Owned desktop support and systems administration for a Windows-based engineering lab &mdash; account management, patching, and hands-on troubleshooting so engineering work never stalled.</p>
+            <div class="tags">
+                <span class="tag">Windows</span>
+                <span class="tag">Systems Admin</span>
+                <span class="tag">IT Support</span>
+            </div>
+        </div>
+        <div class="card">
+            <span class="date">Summer 2008</span>
+            <h3>Open Source Intern @ Hewlett-Packard</h3>
+            <p>Worked in HP's open source lab, an early introduction to Linux, Git, and open source tooling.</p>
+            <div class="tags">
+                <span class="tag">Linux</span>
+                <span class="tag">Git</span>
+                <span class="tag">Open Source</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card writing-links">
+        <span class="writing-links-label">Newsletter</span>
+        <h3><a href="https://edtechnotes.substack.com">edtechnotes.substack.com</a></h3>
+        <p>Notes on ed-tech, engineering, and building things at the intersection of both.</p>
+        <div class="writing-links-sub">
+            Also find me at
+            <a href="https://edwardk.ing">edwardk.ing</a> &middot;
+            <a href="https://thousandonestories.com">thousandonestories.com</a>
+            <a href="https://coffeebreakreads.com">coffeebreakreads.com</a>
+        </div>
+        <a href="https://coffeebreakreads.com" class="writing-links-buried">coffeebreakreads.com</a>
     </div>
 </section>
 
@@ -225,23 +332,67 @@
     <div class="grid">
         <div class="card">
             <span class="date">2021 — Present</span>
-            <h3>STEM Teacher @ The STEAD School</h3>
-            <p>Teaching AP Computer Science, Engineering, and Programming.</p>
+            <h3>Founding Teacher, Engineering Lead @ The STEAD School</h3>
+            <p>Founding staff member at a project-based charter high school. Built the engineering program from scratch; taught English, Math, Engineering, Creative Writing, and AP Computer Science; led Hive advisory for five years.</p>
             <p><a href="http://edkingportfolio.weebly.com/" target="_blank">Teaching Portfolio</a></p>
             <div class="tags">
                 <span class="tag">Java</span>
                 <span class="tag">Python</span>
-                <span class="tag">SketchUp</span>
+                <span class="tag">Curriculum Design</span>
             </div>
         </div>
         <div class="card">
-            <span class="date">2011 — 2012</span>
-            <h3>Field Interviewer @ NapoNet (Peru)</h3>
-            <p>Community outreach and maintenance for a UN-commissioned wireless network.</p>
+            <span class="date">2020 — 2021</span>
+            <h3>Student Teacher @ Polaris Expeditionary School</h3>
+            <p>Completed student teaching for the CSU M.Ed. program, co-planning and co-teaching in a project-based, real-world inquiry classroom &mdash; the model later carried into founding work at STEAD.</p>
             <div class="tags">
-                <span class="tag">Networking</span>
+                <span class="tag">Project-Based Learning</span>
+                <span class="tag">Curriculum Design</span>
+            </div>
+        </div>
+        <div class="card">
+            <span class="date">2018 — 2020</span>
+            <h3>Substitute Teacher &amp; Tutor @ Poudre School District / Huntington Learning Center</h3>
+            <p>Substitute taught across grade levels and subjects, then tutored one-on-one, diagnosing skill gaps and building targeted instruction plans.</p>
+            <div class="tags">
+                <span class="tag">Teaching</span>
+                <span class="tag">Tutoring</span>
+            </div>
+        </div>
+        <div class="card">
+            <span class="date">2015 — 2016</span>
+            <h3>English Teacher @ Suzhou Foreign Language School</h3>
+            <p>Full-time EAP and College Writing instruction for multilingual students preparing for Western universities in Suzhou, China.</p>
+            <div class="tags">
+                <span class="tag">EFL</span>
+                <span class="tag">Curriculum Design</span>
+            </div>
+        </div>
+        <div class="card">
+            <span class="date">2017</span>
+            <h3>English Teacher @ IES San Agustín de Guadalix</h3>
+            <p>Language and culture assistant teaching English to secondary students in Madrid, Spain.</p>
+            <div class="tags">
+                <span class="tag">EFL</span>
                 <span class="tag">Spanish</span>
-                <span class="tag">Grant Writing</span>
+            </div>
+        </div>
+        <div class="card">
+            <span class="date">2012</span>
+            <h3>Translator &amp; Field Researcher @ NapoNet (Peru)</h3>
+            <p>Lead translator on a community-embedded research project bringing educational technology to remote regions of the Peruvian rainforest, funded by an NSF grant.</p>
+            <div class="tags">
+                <span class="tag">Spanish</span>
+                <span class="tag">Field Research</span>
+            </div>
+        </div>
+        <div class="card">
+            <span class="date">2018</span>
+            <h3>Volunteer English Teacher @ Immigrant &amp; Refugee Center of Northern Colorado</h3>
+            <p>Taught English reading, writing, and speaking, primarily to Somali refugees and immigrants in Greeley, CO.</p>
+            <div class="tags">
+                <span class="tag">EFL</span>
+                <span class="tag">Volunteer</span>
             </div>
         </div>
     </div>

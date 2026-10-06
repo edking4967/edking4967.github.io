@@ -1,0 +1,537 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="generator" content="pandoc" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=yes"
+        />
+        <title>blurb</title>
+        <style>
+            /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+            html {
+                color: #1a1a1a;
+                background-color: #fdfdfd;
+            }
+            body {
+                margin: 0 auto;
+                max-width: 36em;
+                padding-left: 50px;
+                padding-right: 50px;
+                padding-top: 50px;
+                padding-bottom: 50px;
+                hyphens: auto;
+                overflow-wrap: break-word;
+                text-rendering: optimizeLegibility;
+                font-kerning: normal;
+            }
+            @media (max-width: 600px) {
+                body {
+                    font-size: 0.9em;
+                    padding: 12px;
+                }
+                h1 {
+                    font-size: 1.8em;
+                }
+            }
+            @media print {
+                html {
+                    background-color: white;
+                }
+                body {
+                    background-color: transparent;
+                    color: black;
+                    font-size: 12pt;
+                }
+                p,
+                h2,
+                h3 {
+                    orphans: 3;
+                    widows: 3;
+                }
+                h2,
+                h3,
+                h4 {
+                    page-break-after: avoid;
+                }
+            }
+            p {
+                margin: 1em 0;
+            }
+            a {
+                color: #1a1a1a;
+            }
+            a:visited {
+                color: #1a1a1a;
+            }
+            img {
+                max-width: 100%;
+            }
+            svg {
+                height: auto;
+                max-width: 100%;
+            }
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                margin-top: 1.4em;
+            }
+            h5,
+            h6 {
+                font-size: 1em;
+                font-style: italic;
+            }
+            h6 {
+                font-weight: normal;
+            }
+            ol,
+            ul {
+                padding-left: 1.7em;
+                margin-top: 1em;
+            }
+            li > ol,
+            li > ul {
+                margin-top: 0;
+            }
+            blockquote {
+                margin: 1em 0 1em 1.7em;
+                padding-left: 1em;
+                border-left: 2px solid #e6e6e6;
+                color: #606060;
+            }
+            code {
+                font-family:
+                    Menlo, Monaco, Consolas, "Lucida Console", monospace;
+                font-size: 85%;
+                margin: 0;
+                hyphens: manual;
+            }
+            pre {
+                margin: 1em 0;
+                overflow: auto;
+            }
+            pre code {
+                padding: 0;
+                overflow: visible;
+                overflow-wrap: normal;
+            }
+            .sourceCode {
+                background-color: transparent;
+                overflow: visible;
+            }
+            hr {
+                border: none;
+                border-top: 1px solid #1a1a1a;
+                height: 1px;
+                margin: 1em 0;
+            }
+            table {
+                margin: 1em 0;
+                border-collapse: collapse;
+                width: 100%;
+                overflow-x: auto;
+                display: block;
+                font-variant-numeric: lining-nums tabular-nums;
+            }
+            table caption {
+                margin-bottom: 0.75em;
+            }
+            tbody {
+                margin-top: 0.5em;
+                border-top: 1px solid #1a1a1a;
+                border-bottom: 1px solid #1a1a1a;
+            }
+            th {
+                border-top: 1px solid #1a1a1a;
+                padding: 0.25em 0.5em 0.25em 0.5em;
+            }
+            td {
+                padding: 0.125em 0.5em 0.25em 0.5em;
+            }
+            header {
+                margin-bottom: 4em;
+                text-align: center;
+            }
+            #TOC li {
+                list-style: none;
+            }
+            #TOC ul {
+                padding-left: 1.3em;
+            }
+            #TOC > ul {
+                padding-left: 0;
+            }
+            #TOC a:not(:hover) {
+                text-decoration: none;
+            }
+            code {
+                white-space: pre-wrap;
+            }
+            span.smallcaps {
+                font-variant: small-caps;
+            }
+            div.columns {
+                display: flex;
+                gap: min(4vw, 1.5em);
+            }
+            div.column {
+                flex: auto;
+                overflow-x: auto;
+            }
+            div.hanging-indent {
+                margin-left: 1.5em;
+                text-indent: -1.5em;
+            }
+            /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+            ul.task-list[class] {
+                list-style: none;
+            }
+            ul.task-list li input[type="checkbox"] {
+                font-size: inherit;
+                width: 0.8em;
+                margin: 0 0.8em 0.2em -1.6em;
+                vertical-align: middle;
+            }
+            .display.math {
+                display: block;
+                text-align: center;
+                margin: 0.5rem auto;
+            }
+        </style>
+        <style>
+            /* Base layout */
+            body {
+                font-family:
+                    system-ui,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Helvetica,
+                    Arial,
+                    sans-serif;
+                line-height: 1.6;
+                color: #222;
+                background: #fff;
+                max-width: 720px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            /* Headings */
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                line-height: 1.3;
+                margin-top: 2em;
+                margin-bottom: 0.5em;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 0.3em;
+            }
+
+            h2 {
+                font-size: 1.7rem;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 0.2em;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            /* Text */
+            p {
+                margin: 1em 0;
+            }
+
+            strong {
+                font-weight: 600;
+            }
+
+            em {
+                font-style: italic;
+            }
+
+            /* Links */
+            a {
+                color: #0066cc;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            /* Lists */
+            ul,
+            ol {
+                margin: 1em 0 1em 1.5em;
+            }
+
+            li {
+                margin: 0.4em 0;
+            }
+
+            /* Code — modern font stack, solarized light inline */
+            code {
+                font-family:
+                    "JetBrains Mono", "Fira Code", "Cascadia Code",
+                    ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                font-size: 0.875em;
+                background: #eee8d5;
+                color: #657b83;
+                padding: 0.2em 0.4em;
+                border-radius: 4px;
+            }
+
+            pre {
+                background: #fdf6e3 !important;
+                padding: 1.1em 1.25em;
+                overflow-x: auto;
+                border-radius: 6px;
+                border: 1px solid #e8dfc8;
+            }
+
+            pre code {
+                padding: 0;
+                background: none;
+                color: inherit;
+            }
+
+            div.sourceCode {
+                background: #fdf6e3 !important;
+                border-radius: 6px;
+                border: 1px solid #e8dfc8;
+            }
+
+            /* Solarized Light syntax token overrides */
+            code span.al {
+                color: #dc322f;
+                font-weight: bold;
+            } /* Alert */
+            code span.an {
+                color: #586e75;
+                font-style: italic;
+            } /* Annotation */
+            code span.at {
+                color: #657b83;
+            } /* Attribute */
+            code span.bn {
+                color: #2aa198;
+            } /* BaseN */
+            code span.bu {
+                color: #268bd2;
+            } /* BuiltIn */
+            code span.cf {
+                color: #859900;
+                font-weight: bold;
+            } /* ControlFlow */
+            code span.ch {
+                color: #2aa198;
+            } /* Char */
+            code span.cn {
+                color: #2aa198;
+            } /* Constant */
+            code span.co {
+                color: #93a1a1;
+                font-style: italic;
+            } /* Comment */
+            code span.cv {
+                color: #586e75;
+                font-style: italic;
+            } /* CommentVar */
+            code span.do {
+                color: #586e75;
+                font-style: italic;
+            } /* Documentation */
+            code span.dt {
+                color: #b58900;
+            } /* DataType */
+            code span.dv {
+                color: #2aa198;
+            } /* DecVal */
+            code span.er {
+                color: #dc322f;
+                font-weight: bold;
+            } /* Error */
+            code span.ex {
+                color: #268bd2;
+            } /* Extension */
+            code span.fl {
+                color: #2aa198;
+            } /* Float */
+            code span.fu {
+                color: #268bd2;
+            } /* Function */
+            code span.im {
+                color: #2aa198;
+            } /* Import */
+            code span.in {
+                color: #586e75;
+                font-style: italic;
+            } /* Information */
+            code span.kw {
+                color: #859900;
+            } /* Keyword */
+            code span.op {
+                color: #657b83;
+            } /* Operator */
+            code span.ot {
+                color: #268bd2;
+            } /* Other */
+            code span.pp {
+                color: #cb4b16;
+            } /* Preprocessor */
+            code span.sc {
+                color: #2aa198;
+            } /* SpecialChar */
+            code span.ss {
+                color: #2aa198;
+            } /* SpecialString */
+            code span.st {
+                color: #2aa198;
+            } /* String */
+            code span.va {
+                color: #cb4b16;
+            } /* Variable */
+            code span.vs {
+                color: #2aa198;
+            } /* VerbatimString */
+            code span.wa {
+                color: #cb4b16;
+                font-style: italic;
+            } /* Warning */
+
+            /* Blockquotes */
+            blockquote {
+                margin: 1.5em 0;
+                padding-left: 1em;
+                border-left: 4px solid #ddd;
+                color: #555;
+            }
+
+            /* Tables */
+            table {
+                border-collapse: collapse;
+                margin: 1.5em 0;
+                width: 100%;
+            }
+
+            th,
+            td {
+                border: 1px solid #ddd;
+                padding: 0.5em 0.75em;
+                text-align: left;
+            }
+
+            th {
+                background: #f5f5f5;
+            }
+
+            /* Horizontal rule */
+            hr {
+                border: none;
+                border-top: 1px solid #ddd;
+                margin: 2em 0;
+            }
+
+            figcaption {
+                font-style: italic;
+                font-size: 80%;
+            }
+        </style>
+    </head>
+    <body>
+        <p>
+            Hi there! I am a teacher and software engineer with 12 years of
+            combined experience.
+        </p>
+        <p>
+            I bring a balance of creativity, technical skill, organization, and
+            clear and effective communication to every project I work on.
+        </p>
+        <p>I have:</p>
+        <ul>
+            <li>
+                Worked as a teacher for 5 years in engineering, math, ESL,
+                english, creative writing, film, and computer science
+            </li>
+            <li>
+                Worked as an engineer for five years
+                <ul>
+                    <li>Focused on C++, JavaScript, Python, and Flask</li>
+                    <li>
+                        NetApp internship, Space Grant, NapoNet, NetApp full
+                        time, In*Situ
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Created and led a short story publication, A Thousand and One
+                Stories
+                <ul>
+                    <li>Created plugins in HTML, CSS, and JavaScript</li>
+                    <li>Designed site</li>
+                    <li>
+                        Managed submissions, edited stories, hired multiple
+                        editors, created an LLC to take payments,
+                    </li>
+                    <li>
+                        Published over 100 stories by authors from around the
+                        world
+                    </li>
+                </ul>
+            </li>
+            <li>Earned an engineering degree and an English bachelor’s</li>
+            <li>Completed an honors thesis in Creative Writing</li>
+            <li>Had 9 stories published and four plays performed</li>
+            <li>Completed a game demo (Monk vs Ninjas)</li>
+            <li>
+                Taken two semesters of Chinese, one at the prestigious Xi’an
+                Jiaotong University
+            </li>
+            <li>
+                Taught ESL in Suzhou, China for a year and in Madrid, Spain for
+                a semester
+            </li>
+            <li>
+                Worked as a Spanish*English translator on a trip to Napo, Peru
+                to assess the viability of using an existing telecom network for
+                education
+            </li>
+            <li>Worked on the power system of the DANDE satellite</li>
+            <li>
+                Substitute taught for two years in preparation for teaching full
+                time
+            </li>
+            <li>Learned to speak Spanish and Chinese</li>
+            <li>
+                Played music in three rock bands and HS jazz band. Written and
+                performed songs at open mic nights.
+            </li>
+            <li>
+                Earned a master’s degree in Education
+                <ul>
+                    <li>Student taught in a diverse high school</li>
+                </ul>
+            </li>
+            <li>
+                Climbed Long’s Peak and walked along the infamous cliff walk of
+                Hua Shan.
+            </li>
+        </ul>
+    </body>
+</html>
