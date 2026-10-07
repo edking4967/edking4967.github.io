@@ -3,187 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Edward King — Game Dev Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<title>Edward King | Game Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="/assets/style.css" rel="stylesheet">
 <style>
-  :root {
-    --accent: #d4900a;
-    --accent-dim: rgba(212,144,10,0.15);
-    --bg: #0e0c08;
-    --bg2: #141008;
-    --border: #28200e;
-    --text: #c5bc9e;
-    --muted: #7a6a4a;
-    --white: #f2e4c0;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 6%;
-    background: rgba(14,12,8,0.96);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-logo {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.65rem;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-  }
-
-  .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-  }
-
-  .nav-links a {
-    text-decoration: none;
-    color: var(--muted);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--white); }
-
-  /* HERO */
-  .hero {
-    padding: 90px 6% 70px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero-eyebrow {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 0.55rem;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    margin-bottom: 1.5rem;
-    opacity: 0.75;
-  }
-
-  .hero h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-  }
-
-  .hero h1 em {
-    font-style: normal;
-    color: var(--accent);
-  }
-
-  .hero p {
-    max-width: 560px;
-    color: var(--muted);
-    font-size: 1.05rem;
-    margin-bottom: 2rem;
-  }
-
-  .hero-link {
+  .hero-cta {
     display: inline-block;
-    padding: 0.65rem 1.5rem;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-size: 0.85rem;
-    font-weight: 600;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.75rem 1.75rem;
+    border-radius: 8px;
     text-decoration: none;
-    border-radius: 4px;
+    font-weight: 600;
+    box-shadow: 0 6px 18px rgba(201,85,47,0.28);
+    transition: background 0.2s;
+  }
+  .hero-cta:hover { background: var(--accent); }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 0.55rem 1.3rem;
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
     transition: background 0.2s, color 0.2s;
   }
+  .btn-outline:hover { background: var(--primary); color: #fff; }
 
-  .hero-link:hover {
-    background: var(--accent);
-    color: var(--bg);
-  }
-
-  /* SECTIONS */
-  section { padding: 70px 6%; }
-
-  .section-label {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .section-label h2 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.01em;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* FEATURED */
-  .featured { background: var(--bg2); }
-
-  .featured-grid {
+  .vg-featured {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2.5rem;
     align-items: start;
+    max-width: 1100px;
+    margin: 0 auto;
   }
 
   @media (max-width: 800px) {
-    .featured-grid { grid-template-columns: 1fr; }
+    .vg-featured { grid-template-columns: 1fr; }
   }
 
   .video-wrap {
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
     overflow: hidden;
     background: #000;
   }
 
   .video-tabs {
     display: flex;
-    border-bottom: 1px solid var(--border);
-    background: var(--bg2);
+    background: var(--pale);
+    border-bottom: 1px solid var(--line);
   }
 
   .video-tab {
-    padding: 0.5rem 1.1rem;
-    font-size: 0.78rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--secondary);
     background: transparent;
     border: none;
-    border-right: 1px solid var(--border);
+    border-right: 1px solid var(--line);
     cursor: pointer;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     transition: color 0.2s;
   }
 
-  .video-tab.active { color: var(--accent); }
-  .video-tab:hover:not(.active) { color: var(--text); }
+  .video-tab.active { color: var(--primary); }
+  .video-tab:hover:not(.active) { color: var(--dark); }
 
   .video-wrap video {
     width: 100%;
@@ -192,243 +86,120 @@
     background: #000;
   }
 
-  .featured-info { padding-top: 0.25rem; }
-
   .featured-info .label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 0.75rem;
+    color: var(--primary);
+    margin-bottom: 0.6rem;
   }
 
-  .featured-info h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-  }
+  .featured-info h3 { font-size: 1.6rem; margin-bottom: 0.9rem; }
 
   .featured-info p {
-    color: var(--text);
-    font-size: 1rem;
+    color: var(--muted-text);
+    margin-bottom: 1.25rem;
     line-height: 1.75;
-    margin-bottom: 1.5rem;
   }
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .tag {
-    padding: 3px 10px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border-radius: 3px;
-    background: var(--accent-dim);
-    color: var(--accent);
-    letter-spacing: 0.03em;
-  }
-
-  .tag-neutral {
-    background: rgba(255,255,255,0.06);
-    color: var(--muted);
-  }
-
-  .links {
+  .featured-info .links {
     display: flex;
     gap: 0.6rem;
     flex-wrap: wrap;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 0.55rem 1.2rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-
-  .btn-solid {
-    background: var(--accent);
-    color: var(--bg);
-    border: 1px solid var(--accent);
-  }
-
-  .btn-solid:hover { opacity: 0.85; }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .btn-outline:hover {
-    border-color: var(--text);
-    color: var(--white);
-  }
-
-  /* GAME GRID */
-  .games { background: var(--bg); }
-
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 1.25rem;
+    margin-top: 1.25rem;
   }
 
   .game-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
+    padding: 0;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    transition: border-color 0.2s;
   }
-
-  .game-card:hover { border-color: rgba(212,144,10,0.3); }
 
   .game-thumb {
+    width: 100%;
     aspect-ratio: 16/9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    border-bottom: 1px solid var(--border);
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--line);
   }
 
-  .thumb-1 { background: linear-gradient(135deg, #1a0e06 0%, #2e1808 100%); }
-  .thumb-2 { background: linear-gradient(135deg, #1a1006 0%, #2e1c08 100%); }
-  .thumb-3 { background: linear-gradient(135deg, #180e04 0%, #2a1a06 100%); }
-  .thumb-4 { background: linear-gradient(135deg, #1c1208 0%, #2e1e0a 100%); }
-  .thumb-5 { background: linear-gradient(135deg, #140e06 0%, #221804 100%); }
-
-  .game-body {
-    padding: 1.1rem 1.25rem 1.4rem;
+  .game-card-body {
+    padding: 1.5rem;
     flex: 1;
     display: flex;
     flex-direction: column;
   }
 
-  .game-year {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 0.3rem;
-    letter-spacing: 0.05em;
-  }
-
-  .game-body h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-
-  .game-body p {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.6;
-    flex: 1;
-    margin-bottom: 1rem;
-  }
+  .game-card-body p { flex: 1; }
 
   .game-links {
     display: flex;
-    gap: 0.4rem;
+    gap: 0.5rem;
     flex-wrap: wrap;
   }
 
   .game-link {
-    font-size: 0.78rem;
-    font-weight: 600;
-    padding: 4px 10px;
-    border-radius: 3px;
-    text-decoration: none;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    transition: all 0.2s;
-  }
-
-  .game-link:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .game-link.primary {
-    background: var(--accent-dim);
-    color: var(--accent);
-    border-color: rgba(212,144,10,0.25);
-  }
-
-  .game-link.primary:hover {
-    background: rgba(212,144,10,0.25);
-    border-color: var(--accent);
-  }
-
-  /* BACK / FOOTER */
-  .back {
-    padding: 50px 6%;
-    text-align: center;
-    border-top: 1px solid var(--border);
-  }
-
-  .back p {
-    color: var(--muted);
-    margin-bottom: 1.25rem;
-    font-size: 0.95rem;
-  }
-
-  footer {
-    padding: 2rem 6%;
-    text-align: center;
-    border-top: 1px solid var(--border);
-  }
-
-  footer p {
     font-size: 0.82rem;
-    color: var(--muted);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--primary);
   }
 
-  footer a { color: var(--accent); text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 540px) {
-    .nav-links { display: none; }
-  }
+  .game-link:hover { text-decoration: underline; }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">EK</a>
-  <ul class="nav-links">
-    <li><a href="#featured">Featured</a></li>
-    <li><a href="#games">Games</a></li>
-    <li><a href="../index.html">Main Site</a></li>
-  </ul>
+    <div class="logo"><a href="/" style="text-decoration:none;color:inherit;">EK.</a></div>
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+        <li><a href="/resume-fancy.html">Resume</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#experience">Experience</a></li>
+        <li><a href="/#projects">Projects</a></li>
+        <li><a href="/#teaching">Teaching</a></li>
+        <li><a href="/#education">Education</a></li>
+        <li><a href="/#writing">Writing</a></li>
+        <li><a href="/vg">Videogames</a></li>
+    </ul>
 </nav>
 
-<div class="hero">
-  <div class="hero-eyebrow">Game Dev Portfolio</div>
-  <h1>Edward <em>King</em></h1>
-  <p>Game developer and software engineer. Building games since 2014 — from Android platformers to 3D Unity projects powered by real-world terrain data.</p>
-  <a href="#featured" class="hero-link">View Projects</a>
-</div>
+<script>
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open);
+    });
+    navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            hamburger.classList.remove('open');
+            hamburger.setAttribute('aria-expanded', false);
+        });
+    });
+</script>
 
-<section class="featured" id="featured">
-  <div class="section-label"><h2>Featured Project</h2></div>
+<header class="hero">
+  <h1>Game Development</h1>
+  <p class="subtitle">Building games since 2014</p>
+  <p class="hero-blurb">
+    From Android platformers to 3D Unity projects powered by real-world terrain data &mdash;
+    a few of the games I've made on the side.
+  </p>
+  <a href="#featured" class="hero-cta">View Projects</a>
+</header>
 
-  <div class="featured-grid">
+<section id="featured" style="background-color:#f6d9c8;">
+  <h2 class="section-title">Featured Project</h2>
+
+  <div class="vg-featured">
     <div class="video-wrap">
       <div class="video-tabs">
         <button class="video-tab active" onclick="switchVideo(this, 'movs/wake up.mp4')">Wake up</button>
@@ -443,7 +214,8 @@
       <div class="label">Flagship</div>
       <h3>Monk vs Ninjas 3D</h3>
       <p>
-        A 3D action platformer built in Unity with C#. Terrain is shaped by real-world Mt. Fuji elevation data processed through a custom Python pipeline — Monk fights ninjas across authentic mountain topography.
+        A 3D action platformer built in Unity with C#. Terrain is shaped by real-world Mt. Fuji elevation data
+        processed through a custom Python pipeline &mdash; Monk fights ninjas across authentic mountain topography.
       </p>
       <div class="tags">
         <span class="tag">Unity</span>
@@ -454,50 +226,50 @@
         <span class="tag">Elevation Data</span>
       </div>
       <div class="links">
-          <!--<a href="http://thousandonestories.com/mvn3d" target="_blank" class="btn btn-solid">Play</a>-->
-        <a href="http://github.com/edking4967/mvn-3d" target="_blank" class="btn btn-outline">Source Code</a>
-        <a href="/writing/fuji_python.html" class="btn btn-outline">Elevation Data Write-up</a>
+        <a href="http://github.com/edking4967/mvn-3d" target="_blank" class="btn-outline">Source Code</a>
+        <a href="/writing/fuji_python.html" class="btn-outline">Elevation Data Write-up</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="games" id="games">
-  <div class="section-label"><h2>All Games</h2></div>
+<section id="games">
+  <h2 class="section-title">All Games</h2>
 
-  <div class="game-grid">
+  <div class="grid">
 
-    <div class="game-card">
-      <div class="game-thumb" style="padding:0;"><img src="mvn-android-thumb.png" alt="Monk vs Ninjas Android" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-      <div class="game-body">
-        <div class="game-year">2014</div>
+    <div class="card game-card">
+      <img class="game-thumb" src="mvn-android-thumb.png" alt="Monk vs Ninjas Android">
+      <div class="game-card-body">
+        <span class="date">2014</span>
         <h3>Monk vs Ninjas Android</h3>
-        <p>The original. A 2D Mario-style platformer for Android — jump, kick, and fight through ninja-packed levels.</p>
+        <p>The original. A 2D Mario-style platformer for Android &mdash; jump, kick, and fight through ninja-packed levels.</p>
         <div class="game-links">
-          <a href="http://github.com/edking4967/monk-vs-ninjas" target="_blank" class="game-link">Source</a>
+          <a href="http://github.com/edking4967/monk-vs-ninjas" target="_blank" class="game-link">Source &rarr;</a>
         </div>
       </div>
     </div>
-    <div class="game-card">
-      <div class="game-thumb" style="padding:0;"><img src="cube.png" alt="Cube Office" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-      <div class="game-body">
-        <div class="game-year">2016</div>
+
+    <div class="card game-card">
+      <img class="game-thumb" src="cube.png" alt="Cube Office">
+      <div class="game-card-body">
+        <span class="date">2016</span>
         <h3>Cube Office</h3>
         <p>Serenity Forge Game Jam entry. Theme: healing. You manage an office and resolve conflicts between cube-dwelling coworkers.</p>
         <div class="game-links">
-          <a href="http://gamejolt.com/games/cube-office/174573" target="_blank" class="game-link primary">GameJolt</a>
+          <a href="http://gamejolt.com/games/cube-office/174573" target="_blank" class="game-link">GameJolt &rarr;</a>
         </div>
       </div>
     </div>
 
-    <div class="game-card">
-      <div class="game-thumb" style="padding:0;"><img src="rainbow.png" alt="Rainbow Sword" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
-      <div class="game-body">
-        <div class="game-year">2016</div>
+    <div class="card game-card">
+      <img class="game-thumb" src="rainbow.png" alt="Rainbow Sword">
+      <div class="game-card-body">
+        <span class="date">2016</span>
         <h3>Rainbow Sword</h3>
-        <p>Itch.io "A Game By Its Cover" jam. You're a cloud armed with a rainbow sword — defeat rainclouds and help the plants grow.</p>
+        <p>Itch.io "A Game By Its Cover" jam. You're a cloud armed with a rainbow sword &mdash; defeat rainclouds and help the plants grow.</p>
         <div class="game-links">
-          <a href="https://thousandone.itch.io/rainbow-sword" target="_blank" class="game-link primary">itch.io</a>
+          <a href="https://thousandone.itch.io/rainbow-sword" target="_blank" class="game-link">itch.io &rarr;</a>
         </div>
       </div>
     </div>
@@ -505,13 +277,8 @@
   </div>
 </section>
 
-<div class="back">
-  <p>More projects, engineering experience, and writing at the main portfolio.</p>
-  <a href="index.html" class="btn btn-outline">&larr; Main Portfolio</a>
-</div>
-
 <footer>
-  <p>Edward King &mdash; <a href="mailto:ed.king4967@gmail.com">ed.king4967@gmail.com</a></p>
+    <p>Edward King &mdash; <a href="mailto:ed.king4967@gmail.com" style="color:inherit;">ed.king4967@gmail.com</a></p>
 </footer>
 
 <script>
