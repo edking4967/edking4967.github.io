@@ -1,9 +1,11 @@
 tmp
 *.swp
+*.swo
 .DS_Store
 _site
 .jekyll-cache
 .jekyll-metadata
 venv
 Gemfile.lock
-how.md
+how.*
+todo.*

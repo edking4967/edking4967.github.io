@@ -399,3 +399,7 @@ footer {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.85em;
 }
+
+.section-description {
+    padding-bottom: 80px;
+}
