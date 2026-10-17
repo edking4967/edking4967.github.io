@@ -43,7 +43,6 @@ const cube1 = new Dragon("img/cube.png", { x: 200, y: 160 }, 100, ctx);
 const cube2 = new Dragon("img/cube.png", { x: 200, y: 260 }, 200, ctx);
 
 Promise.all([dragon, cube1, cube2].map((obj) => obj.preload())).then(() =>
-    // TODO: wtf does this mean
     requestAnimationFrame(update)
 );
 
